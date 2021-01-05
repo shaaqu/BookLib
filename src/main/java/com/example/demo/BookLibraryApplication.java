@@ -9,9 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 @SpringBootApplication(scanBasePackages = {"com.example.demo.controllers", "com.example.demo.entities", "com.example.demo.repositories", "com.example.demo.services"})
+@EnableJpaRepositories("com.example.demo.repositories")
 public class BookLibraryApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
