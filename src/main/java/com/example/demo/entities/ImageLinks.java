@@ -1,23 +1,24 @@
 package com.example.demo.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ImageLinks")
 public class ImageLinks {
 
     @Id
-    @Column(name = "bookId")
-    private String bookId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "smallThumbnail")
     private String smallThumbnail;
 
     @Column(name = "thumbnail")
     private String thumbnail;
+
+    @OneToOne(mappedBy = "ImageLinks")
+    private VolumeInfo volumeInfo;
 
     public ImageLinks() {
     }
