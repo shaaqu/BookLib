@@ -37,4 +37,36 @@ public class Book {
 
     public Book() {
     }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public String getEtag() {
+        return etag;
+    }
+
+    public String getSelfLink() {
+        return selfLink;
+    }
+
+    public VolumeInfo getVolumeInfo() {
+        return volumeInfo;
+    }
+
+    public SaleInfo getSaleInfo() {
+        return saleInfo;
+    }
+
+    public AccessInfo getAccessInfo() {
+        return accessInfo;
+    }
+
+    public SearchInfo getSearchInfo() {
+        return searchInfo;
+    }
 }

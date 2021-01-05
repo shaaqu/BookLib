@@ -2,6 +2,7 @@ package com.example.demo.deseializer;
 
 import com.example.demo.entities.Book;
 import com.example.demo.services.BookJsonModule;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,8 +27,10 @@ class BookItemDeserializerTest {
     }
 
     @Test
-    void bookDeserializeWithoutAssertions(){
-        Book book = objectMapper.readValue()
+    void bookDeserializeWithoutAssertions() throws JsonProcessingException {
+        Book book = objectMapper.readValue(jsonStr, Book.class);
+
+
     }
 
 }
