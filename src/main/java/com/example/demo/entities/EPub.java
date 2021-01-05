@@ -1,9 +1,6 @@
 package com.example.demo.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "epub")
@@ -18,6 +15,10 @@ public class EPub {
 
     @Column(name = "acsTokenLink")
     private String acsTokenLink;
+
+    @ManyToOne
+    @JoinColumn(name = "accessInfo")
+    private AccessInfo accessInfo;
 
     public EPub() {
     }
