@@ -15,13 +15,9 @@ class BookItemDeserializerTest {
     ObjectMapper objectMapper;
     String jsonStr;
 
-    @Before
-    void loadJSON() {
-        jsonStr = JSONReader.readJSON("testJson.json");
-    }
-
     @BeforeEach
     void init() {
+        jsonStr = JSONReader.readJSON("testJson.json");
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new BookJsonModule());
     }
@@ -30,7 +26,10 @@ class BookItemDeserializerTest {
     void bookDeserializeWithoutAssertions() throws JsonProcessingException {
         Book book = objectMapper.readValue(jsonStr, Book.class);
 
-
+        assertEquals("test", book.getBookId());
+        assertEquals("test", book.getEtag());
+        assertEquals("test", book.getKind());
+        assertEquals("test", book.getSelfLink());
     }
 
 }
