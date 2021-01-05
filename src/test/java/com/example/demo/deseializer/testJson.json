@@ -1,0 +1,72 @@
+{
+  "kind": "test",
+  "id": "test",
+  "etag": "test",
+  "selfLink": "test",
+  "volumeInfo": {
+    "title": "test",
+    "authors": [
+      "test"
+    ],
+    "publisher": "test",
+    "publishedDate": "1111-11-11",
+    "description": "test",
+    "industryIdentifiers": [
+      {
+        "type": "test",
+        "identifier": "test"
+      },
+      {
+        "type": "test",
+        "identifier": "test"
+      }
+    ],
+    "readingModes": {
+      "text": true,
+      "image": true
+    },
+    "pageCount": 1,
+    "printType": "test",
+    "categories": [
+      "test1", "test2"
+    ],
+    "averageRating": 1,
+    "ratingsCount": 1,
+    "maturityRating": "test",
+    "allowAnonLogging": "test",
+    "contentVersion": "test",
+    "imageLinks": {
+      "smallThumbnail": "test",
+      "thumbnail": "test"
+    },
+    "language": "test",
+    "previewLink": "test",
+    "infoLink": "test",
+    "canonicalVolumeLink": "test"
+  },
+  "saleInfo": {
+    "country": "test",
+    "saleability": "test",
+    "isEbook": true
+  },
+  "accessInfo": {
+    "country": "test",
+    "viewability": "test",
+    "embeddable": true,
+    "publicDomain": true,
+    "textToSpeechPermission": "test",
+    "epub": {
+      "isAvailable": true,
+      "acsTokenLink": "test"
+    },
+    "pdf": {
+      "isAvailable": true
+    },
+    "webReaderLink": "test",
+    "accessViewStatus": "test",
+    "quoteSharingAllowed": true
+  },
+  "searchInfo": {
+    "textSnippet": "test"
+  }
+}
