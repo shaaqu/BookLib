@@ -13,10 +13,10 @@ public class PDF {
     @Column(name = "bookId")
     private String bookId;
 
-    @Column
+    @Column(name = "isAvailable")
     private boolean isAvailable;
 
-    @Column
+    @Column(name = "acsTokenLink")
     private String acsTokenLink;
 
     public PDF() {
