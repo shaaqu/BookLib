@@ -43,6 +43,11 @@ public class AccessInfo {
     @Column(name = "quoteSharingAllowed")
     private boolean quoteSharingAllowed;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "bookId")
+    private Book book;
+
     public AccessInfo() {
     }
 }

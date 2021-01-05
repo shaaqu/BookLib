@@ -1,9 +1,6 @@
 package com.example.demo.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "searchInfo")
@@ -15,6 +12,11 @@ public class SearchInfo {
 
     @Column(name = "textSnippet")
     private String textSnippet;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "bookId")
+    private Book book;
 
     public SearchInfo() {
     }

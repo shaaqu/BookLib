@@ -59,6 +59,11 @@ public class VolumeInfo {
     @Column(name = "canonicalVolumeLink")
     private String canonicalVolumeLink;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "bookId")
+    private Book book;
+
     public VolumeInfo() {
     }
 }
