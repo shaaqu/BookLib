@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.deseializer;
 
 import com.example.demo.entities.Book;
 import com.example.demo.services.BookJsonModule;
