@@ -42,6 +42,21 @@ public class VolumeInfo {
     @Column(name = "printType")
     private String printType;
 
+    @Column(name = "categories") @ElementCollection
+    List<String> categories = new ArrayList<>();
+
+    @Column(name = "averageRating")
+    private double averageRating;
+
+    @Column(name = "ratingCount")
+    private int ratingCount;
+
+    @Column(name = "maturityRating")
+    private String maturityRating;
+
+    @Column(name = "allowAnonLogging")
+    private String allowAnonLogging;
+
     @Column(name = "contentVersion")
     private String contentVersion;
 
@@ -69,7 +84,12 @@ public class VolumeInfo {
     public VolumeInfo() {}
 
     @Builder
-    public VolumeInfo(String bookId, String title, List<Author> authors, String publisher, long publishedDate, String description, List<IndustryIdentifier> industryIdentifiers, ReadingMode readingMode, int pageCount, String printType, String contentVersion, ImageLinks imageLinks, String language, String previewLink, String infoLink, String canonicalVolumeLink, Book book) {
+    public VolumeInfo(String bookId, String title, List<Author> authors, String publisher,
+                      long publishedDate, String description, List<IndustryIdentifier> industryIdentifiers,
+                      ReadingMode readingMode, int pageCount, String printType, double averageRating,
+                      int ratingCount, String maturityRating, String allowAnonLogging, String contentVersion,
+                      ImageLinks imageLinks, String language, String previewLink, String infoLink,
+                      String canonicalVolumeLink, Book book) {
         this.bookId = bookId;
         this.title = title;
         this.authors = authors;
@@ -80,6 +100,10 @@ public class VolumeInfo {
         this.readingMode = readingMode;
         this.pageCount = pageCount;
         this.printType = printType;
+        this.averageRating = averageRating;
+        this.ratingCount = ratingCount;
+        this.maturityRating = maturityRating;
+        this.allowAnonLogging = allowAnonLogging;
         this.contentVersion = contentVersion;
         this.imageLinks = imageLinks;
         this.language = language;
@@ -87,6 +111,10 @@ public class VolumeInfo {
         this.infoLink = infoLink;
         this.canonicalVolumeLink = canonicalVolumeLink;
         this.book = book;
+    }
+
+    public void addCategories(List<String> categories) {
+        this.categories.addAll(categories);
     }
 
     public String getBookId() {
@@ -127,6 +155,26 @@ public class VolumeInfo {
 
     public String getPrintType() {
         return printType;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public String getMaturityRating() {
+        return maturityRating;
+    }
+
+    public String getAllowAnonLogging() {
+        return allowAnonLogging;
     }
 
     public String getContentVersion() {

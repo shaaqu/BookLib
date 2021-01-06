@@ -18,6 +18,9 @@ public class SaleInfo {
     @Column(name = "saleAbility")
     private String saleAbility;
 
+    @Column(name = "isEbook")
+    private boolean isEbook;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "bookId")
@@ -27,10 +30,11 @@ public class SaleInfo {
     }
 
     @Builder
-    public SaleInfo(String bookId, String country, String saleAbility, Book book) {
+    public SaleInfo(String bookId, String country, String saleAbility, boolean isEbook, Book book) {
         this.bookId = bookId;
         this.country = country;
         this.saleAbility = saleAbility;
+        this.isEbook = isEbook;
         this.book = book;
     }
 
@@ -44,6 +48,10 @@ public class SaleInfo {
 
     public String getSaleAbility() {
         return saleAbility;
+    }
+
+    public boolean isEbook() {
+        return isEbook;
     }
 
     public Book getBook() {

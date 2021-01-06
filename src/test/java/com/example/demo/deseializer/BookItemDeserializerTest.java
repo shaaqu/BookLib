@@ -1,15 +1,15 @@
 package com.example.demo.deseializer;
 
 import com.example.demo.BookItemDeserializer;
-import com.example.demo.entities.AccessInfo;
-import com.example.demo.entities.Author;
-import com.example.demo.entities.Book;
-import com.example.demo.entities.EPub;
+import com.example.demo.JSONNodes;
+import com.example.demo.entities.*;
 import com.example.demo.services.BookJsonModule;
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MappingJsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,17 +19,31 @@ import javax.json.*;
 import java.io.IOException;
 import java.io.StringReader;
 
+import static com.example.demo.JSONNodes.Paths.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BookItemDeserializerTest {
 
     ObjectMapper objectMapper;
     JsonNode jsonNode;
+    JSONNodes jsonNodes;
 
     String jsonStr = JSONReader.readJSON("testJson.json");
     BookItemDeserializer bookItemDeserializer = new BookItemDeserializer();
-    JsonParser jsonParser = (JsonParser) Json.createParser(new StringReader(jsonStr));
+    JsonFactory jsonFactory = new MappingJsonFactory();
+    JsonParser jsonParser;
+
+    {
+        try {
+            jsonParser = jsonFactory.createParser(jsonStr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     ObjectCodec objectCodec = jsonParser.getCodec();
+
 
 
     @BeforeEach
@@ -37,6 +51,7 @@ class BookItemDeserializerTest {
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new BookJsonModule());
         jsonNode = objectCodec.readTree(jsonParser);
+        jsonNodes = new JSONNodes(jsonNode);
     }
 
     @Test
@@ -51,7 +66,7 @@ class BookItemDeserializerTest {
 
     @Test
     void accessInfoDeserialize() throws JsonProcessingException {
-        AccessInfo accessInfo = bookItemDeserializer.readAccessInfo(jsonNode.get("accessInfo"));
+        AccessInfo accessInfo = bookItemDeserializer.readAccessInfo(jsonNodes.getPath(ACCESS_INFO));
 
         assertEquals("test", accessInfo.getBookId());
         assertEquals("test", accessInfo.getCountry());
@@ -66,35 +81,94 @@ class BookItemDeserializerTest {
 
     @Test
     void authorDeserialize() throws JsonProcessingException {
-        Author author = bookItemDeserializer.readAuthor(jsonNode.get("").get("authors"));
+        Author author = bookItemDeserializer.readAuthor(jsonNodes.getPath(AUTHORS));
 
         assertEquals("test", author.getName());
     }
 
     @Test
     void epubDeserialize() throws JsonProcessingException {
-        EPub ePub = bookItemDeserializer.readEPub(jsonNode.get("epub"))
+        EPub ePub = bookItemDeserializer.readEPub(jsonNodes.getPath(EPUB));
 
+
+        assertTrue(ePub.isAvailable());
+        assertEquals( "test", ePub.getBookId());
+        assertEquals("test", ePub.getAcsTokenLink());
     }
 
     @Test
-    void imageLinksDeserialize() throws JsonProcessingException {}
+    void imageLinksDeserialize() throws JsonProcessingException {
+        ImageLinks imageLinks = bookItemDeserializer.readImageLinks(jsonNodes.getPath(IMAGE_LINKS));
+
+        assertEquals("test", imageLinks.getSmallThumbnail());
+        assertEquals("test", imageLinks.getThumbnail());
+    }
 
     @Test
-    void industryIdentifierDeserialize() throws JsonProcessingException {}
+    void industryIdentifierDeserialize() throws JsonProcessingException {
+        IndustryIdentifier industryIdentifier = bookItemDeserializer.readIndustryIdentifier(jsonNodes.getPath(INDUSTRY_IDENTIFIER));
+
+        assertEquals("test", industryIdentifier.getBookId());
+        assertEquals("test", industryIdentifier.getType());
+        assertEquals("test", industryIdentifier.getIdentifier());
+    }
 
     @Test
-    void pdfDeserialize() throws JsonProcessingException {}
+    void pdfDeserialize() throws JsonProcessingException {
+        com.example.demo.entities.PDF pdf = bookItemDeserializer.readPDF(jsonNodes.getPath(PDF));
+
+        assertTrue(pdf.isAvailable());
+        assertEquals( "test", pdf.getBookId());
+        assertEquals("test", pdf.getAcsTokenLink());
+    }
 
     @Test
-    void readingModelDeserialize() throws JsonProcessingException {}
+    void readingModeDeserialize() throws JsonProcessingException {
+        ReadingMode readingMode = bookItemDeserializer.readReadingMode(jsonNodes.getPath(READING_MODES));
+
+        assertEquals( "test", readingMode.getBookId());
+        assertTrue(readingMode.isText());
+        assertTrue(readingMode.isImage());
+    }
 
     @Test
-    void saleInfoDeserialize() throws JsonProcessingException {}
+    void saleInfoDeserialize() throws JsonProcessingException {
+        SaleInfo saleInfo = bookItemDeserializer.readSaleInfo(jsonNodes.getPath(SALE_INFO));
+
+        assertEquals("test", saleInfo.getBookId());
+        assertEquals("test", saleInfo.getCountry());
+        assertEquals("test", saleInfo.getSaleAbility());
+        assertTrue(saleInfo.isEbook());
+    }
 
     @Test
-    void searchInfoDeserialize() throws JsonProcessingException {}
+    void searchInfoDeserialize() throws JsonProcessingException {
+        SearchInfo searchInfo = bookItemDeserializer.readSearchInfo(jsonNodes.getPath(SEARCH_INFO));
+
+        assertEquals("test", searchInfo.getBookId());
+        assertEquals("test", searchInfo.getTextSnippet());
+    }
 
     @Test
-    void volumeInfoDeserialize() throws JsonProcessingException {}
+    void volumeInfoDeserialize() throws JsonProcessingException {
+        VolumeInfo volumeInfo = bookItemDeserializer.readVolumeInfo(jsonNodes.getPath(VOLUME_INFO));
+
+        assertEquals("test", volumeInfo.getBookId());
+        assertEquals("test", volumeInfo.getTitle());
+        assertEquals("1111-11-11", volumeInfo.getPublishedDate());
+        assertEquals("test", volumeInfo.getDescription());
+        assertEquals(1, volumeInfo.getPageCount());
+        assertEquals("test", volumeInfo.getPrintType());
+        assertTrue(volumeInfo.getCategories().contains("test1"));
+        assertTrue(volumeInfo.getCategories().contains("test2"));
+        assertEquals(1, volumeInfo.getAverageRating());
+        assertEquals(1, volumeInfo.getRatingCount());
+        assertEquals("test", volumeInfo.getMaturityRating());
+        assertEquals("test", volumeInfo.getAllowAnonLogging());
+        assertEquals("test", volumeInfo.getContentVersion());
+        assertEquals("test", volumeInfo.getLanguage());
+        assertEquals("test", volumeInfo.getPreviewLink());
+        assertEquals("test", volumeInfo.getInfoLink());
+        assertEquals("test", volumeInfo.getCanonicalVolumeLink());
+    }
 }

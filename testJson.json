@@ -60,7 +60,8 @@
       "acsTokenLink": "test"
     },
     "pdf": {
-      "isAvailable": true
+      "isAvailable": true,
+      "acsTokenLink": "test"
     },
     "webReaderLink": "test",
     "accessViewStatus": "test",
