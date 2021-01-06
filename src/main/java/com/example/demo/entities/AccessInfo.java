@@ -29,12 +29,12 @@ public class AccessInfo {
     private String textToSpeechPermission;
 
     @Column(name = "epub")
-    @OneToMany(mappedBy = "accessInfo")
-    private List<EPub> ePubList;
+    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL)
+    private EPub ePub;
 
     @Column(name = "pdf")
-    @OneToMany(mappedBy = "accessInfo")
-    private List<PDF> pdfList;
+    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL)
+    private PDF pdf;
 
     @Column(name = "webReaderLink")
     private String webReaderLink;
@@ -54,15 +54,15 @@ public class AccessInfo {
     }
 
     @Builder
-    public AccessInfo(String bookId, String country, String viewAbility, boolean embeddable, boolean publicDomian, String textToSpeechPermission, List<EPub> ePubList, List<PDF> pdfList, String webReaderLink, String accessViewStatus, boolean quoteSharingAllowed, Book book) {
+    public AccessInfo(String bookId, String country, String viewAbility, boolean embeddable, boolean publicDomian, String textToSpeechPermission, EPub ePub, PDF pdf, String webReaderLink, String accessViewStatus, boolean quoteSharingAllowed, Book book) {
         this.bookId = bookId;
         this.country = country;
         this.viewAbility = viewAbility;
         this.embeddable = embeddable;
         this.publicDomian = publicDomian;
         this.textToSpeechPermission = textToSpeechPermission;
-        this.ePubList = ePubList;
-        this.pdfList = pdfList;
+        this.ePub = ePub;
+        this.pdf = pdf;
         this.webReaderLink = webReaderLink;
         this.accessViewStatus = accessViewStatus;
         this.quoteSharingAllowed = quoteSharingAllowed;
@@ -93,12 +93,12 @@ public class AccessInfo {
         return textToSpeechPermission;
     }
 
-    public List<EPub> getEPubList() {
-        return ePubList;
+    public EPub getePub() {
+        return ePub;
     }
 
-    public List<PDF> getPdfList() {
-        return pdfList;
+    public PDF getPdf() {
+        return pdf;
     }
 
     public String getWebReaderLink() {

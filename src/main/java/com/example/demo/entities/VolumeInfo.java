@@ -86,7 +86,7 @@ public class VolumeInfo {
     @Builder
     public VolumeInfo(String bookId, String title, List<Author> authors, String publisher,
                       long publishedDate, String description, List<IndustryIdentifier> industryIdentifiers,
-                      ReadingMode readingMode, int pageCount, String printType, double averageRating,
+                      ReadingMode readingMode, int pageCount, String printType, List<String> categories,double averageRating,
                       int ratingCount, String maturityRating, String allowAnonLogging, String contentVersion,
                       ImageLinks imageLinks, String language, String previewLink, String infoLink,
                       String canonicalVolumeLink, Book book) {
@@ -100,6 +100,7 @@ public class VolumeInfo {
         this.readingMode = readingMode;
         this.pageCount = pageCount;
         this.printType = printType;
+        this.categories = categories;
         this.averageRating = averageRating;
         this.ratingCount = ratingCount;
         this.maturityRating = maturityRating;

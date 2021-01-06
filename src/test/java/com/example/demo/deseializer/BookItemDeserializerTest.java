@@ -81,7 +81,7 @@ class BookItemDeserializerTest {
 
     @Test
     void authorDeserialize() throws JsonProcessingException {
-        Author author = bookItemDeserializer.readAuthor(jsonNodes.getPath(AUTHORS));
+        Author author = bookItemDeserializer.readAuthor(jsonNodes.getPath(AUTHORS)).get(0);
 
         assertEquals("test", author.getName());
     }
@@ -106,7 +106,7 @@ class BookItemDeserializerTest {
 
     @Test
     void industryIdentifierDeserialize() throws JsonProcessingException {
-        IndustryIdentifier industryIdentifier = bookItemDeserializer.readIndustryIdentifier(jsonNodes.getPath(INDUSTRY_IDENTIFIER));
+        IndustryIdentifier industryIdentifier = bookItemDeserializer.readIndustryIdentifier(jsonNodes.getPath(INDUSTRY_IDENTIFIER)).get(0);
 
         assertEquals("test", industryIdentifier.getBookId());
         assertEquals("test", industryIdentifier.getType());

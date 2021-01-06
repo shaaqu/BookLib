@@ -18,8 +18,8 @@ public class EPub {
     @Column(name = "acsTokenLink")
     private String acsTokenLink;
 
-    @ManyToOne
-    @JoinColumn(name = "accessInfo")
+    @OneToOne
+    @JoinColumn(name = "bookId")
     private AccessInfo accessInfo;
 
     public EPub() {
