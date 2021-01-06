@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 
 @Entity
@@ -38,6 +40,18 @@ public class Book {
     public Book() {
     }
 
+    @Builder
+    public Book(String kind, String bookId, String etag, String selfLink, VolumeInfo volumeInfo, SaleInfo saleInfo, AccessInfo accessInfo, SearchInfo searchInfo) {
+        this.kind = kind;
+        this.bookId = bookId;
+        this.etag = etag;
+        this.selfLink = selfLink;
+        this.volumeInfo = volumeInfo;
+        this.saleInfo = saleInfo;
+        this.accessInfo = accessInfo;
+        this.searchInfo = searchInfo;
+    }
+
     public String getKind() {
         return kind;
     }
@@ -69,4 +83,6 @@ public class Book {
     public SearchInfo getSearchInfo() {
         return searchInfo;
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -49,5 +51,21 @@ public class AccessInfo {
     private Book book;
 
     public AccessInfo() {
+    }
+
+    @Builder
+    public AccessInfo(String bookId, String country, String viewAbility, boolean embeddable, boolean publicDomian, String textToSpeechPermission, List<EPub> ePubList, List<PDF> pdfList, String webReaderLink, String accessViewStatus, boolean quoteSharingAllowed, Book book) {
+        this.bookId = bookId;
+        this.country = country;
+        this.viewAbility = viewAbility;
+        this.embeddable = embeddable;
+        this.publicDomian = publicDomian;
+        this.textToSpeechPermission = textToSpeechPermission;
+        this.ePubList = ePubList;
+        this.pdfList = pdfList;
+        this.webReaderLink = webReaderLink;
+        this.accessViewStatus = accessViewStatus;
+        this.quoteSharingAllowed = quoteSharingAllowed;
+        this.book = book;
     }
 }

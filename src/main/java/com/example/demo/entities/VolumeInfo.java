@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,26 @@ public class VolumeInfo {
     @JoinColumn(name = "bookId")
     private Book book;
 
-    public VolumeInfo() {
+    public VolumeInfo() {}
+
+    @Builder
+    public VolumeInfo(String bookId, String title, List<Author> authors, String publisher, long publishedDate, String description, List<IndustryIdentifier> industryIdentifiers, ReadingModel readingModel, int pageCount, String printType, String contentVersion, ImageLinks imageLinks, String language, String previewLink, String infoLink, String canonicalVolumeLink, Book book) {
+        this.bookId = bookId;
+        this.title = title;
+        this.authors = authors;
+        this.publisher = publisher;
+        this.publishedDate = publishedDate;
+        this.description = description;
+        this.industryIdentifiers = industryIdentifiers;
+        this.readingModel = readingModel;
+        this.pageCount = pageCount;
+        this.printType = printType;
+        this.contentVersion = contentVersion;
+        this.imageLinks = imageLinks;
+        this.language = language;
+        this.previewLink = previewLink;
+        this.infoLink = infoLink;
+        this.canonicalVolumeLink = canonicalVolumeLink;
+        this.book = book;
     }
 }

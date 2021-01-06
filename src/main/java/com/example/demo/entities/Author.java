@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,5 +23,11 @@ public class Author {
     List<VolumeInfo> books = new ArrayList<VolumeInfo>();
 
     public Author() {
+    }
+
+    @Builder
+    public Author(String name, List<VolumeInfo> books) {
+        this.name = name;
+        this.books = books;
     }
 }

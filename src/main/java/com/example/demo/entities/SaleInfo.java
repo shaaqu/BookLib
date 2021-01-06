@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,5 +24,13 @@ public class SaleInfo {
     private Book book;
 
     public SaleInfo() {
+    }
+
+    @Builder
+    public SaleInfo(String bookId, String country, String saleAbility, Book book) {
+        this.bookId = bookId;
+        this.country = country;
+        this.saleAbility = saleAbility;
+        this.book = book;
     }
 }

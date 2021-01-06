@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,5 +24,13 @@ public class ReadingModel {
     private List<VolumeInfo> volumeInfoList;
 
     public ReadingModel() {
+    }
+
+    @Builder
+    public ReadingModel(String bookId, boolean text, boolean image, List<VolumeInfo> volumeInfoList) {
+        this.bookId = bookId;
+        this.text = text;
+        this.image = image;
+        this.volumeInfoList = volumeInfoList;
     }
 }

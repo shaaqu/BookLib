@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,12 @@ public class SearchInfo {
     @JoinColumn(name = "bookId")
     private Book book;
 
-    public SearchInfo() {
+    public SearchInfo() { }
+
+    @Builder
+    public SearchInfo(String bookId, String textSnippet, Book book) {
+        this.bookId = bookId;
+        this.textSnippet = textSnippet;
+        this.book = book;
     }
 }

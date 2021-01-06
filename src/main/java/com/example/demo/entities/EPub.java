@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,5 +23,13 @@ public class EPub {
     private AccessInfo accessInfo;
 
     public EPub() {
+    }
+
+    @Builder
+    public EPub(String bookId, boolean isAvailable, String acsTokenLink, AccessInfo accessInfo) {
+        this.bookId = bookId;
+        this.isAvailable = isAvailable;
+        this.acsTokenLink = acsTokenLink;
+        this.accessInfo = accessInfo;
     }
 }

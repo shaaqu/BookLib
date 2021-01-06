@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,5 +23,13 @@ public class ImageLinks {
     private VolumeInfo volumeInfo;
 
     public ImageLinks() {
+    }
+
+    @Builder
+    public ImageLinks(Long id, String smallThumbnail, String thumbnail, VolumeInfo volumeInfo) {
+        this.id = id;
+        this.smallThumbnail = smallThumbnail;
+        this.thumbnail = thumbnail;
+        this.volumeInfo = volumeInfo;
     }
 }
