@@ -49,7 +49,8 @@ class BookItemDeserializerTest {
 
     @Test
     void accessInfoDeserialize() throws JsonProcessingException {
-        AccessInfo accessInfo = bookItemDeserializer.readAccessInfo();
+        AccessInfo accessInfo = bookItemDeserializer.readAccessInfo(jsonNode.get("accessInfo"));
+
     }
 
     @Test

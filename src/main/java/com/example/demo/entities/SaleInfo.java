@@ -33,4 +33,20 @@ public class SaleInfo {
         this.saleAbility = saleAbility;
         this.book = book;
     }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getSaleAbility() {
+        return saleAbility;
+    }
+
+    public Book getBook() {
+        return book;
+    }
 }

@@ -33,4 +33,20 @@ public class ReadingModel {
         this.image = image;
         this.volumeInfoList = volumeInfoList;
     }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public boolean isText() {
+        return text;
+    }
+
+    public boolean isImage() {
+        return image;
+    }
+
+    public List<VolumeInfo> getVolumeInfoList() {
+        return volumeInfoList;
+    }
 }

@@ -68,4 +68,52 @@ public class AccessInfo {
         this.quoteSharingAllowed = quoteSharingAllowed;
         this.book = book;
     }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getViewAbility() {
+        return viewAbility;
+    }
+
+    public boolean isEmbeddable() {
+        return embeddable;
+    }
+
+    public boolean isPublicDomian() {
+        return publicDomian;
+    }
+
+    public String getTextToSpeechPermission() {
+        return textToSpeechPermission;
+    }
+
+    public List<EPub> getEPubList() {
+        return ePubList;
+    }
+
+    public List<PDF> getPdfList() {
+        return pdfList;
+    }
+
+    public String getWebReaderLink() {
+        return webReaderLink;
+    }
+
+    public String getAccessViewStatus() {
+        return accessViewStatus;
+    }
+
+    public boolean isQuoteSharingAllowed() {
+        return quoteSharingAllowed;
+    }
+
+    public Book getBook() {
+        return book;
+    }
 }

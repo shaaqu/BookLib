@@ -28,4 +28,16 @@ public class SearchInfo {
         this.textSnippet = textSnippet;
         this.book = book;
     }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public String getTextSnippet() {
+        return textSnippet;
+    }
+
+    public Book getBook() {
+        return book;
+    }
 }

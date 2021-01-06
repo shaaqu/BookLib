@@ -32,4 +32,20 @@ public class PDF {
         this.acsTokenLink = acsTokenLink;
         this.accessInfo = accessInfo;
     }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public String getAcsTokenLink() {
+        return acsTokenLink;
+    }
+
+    public AccessInfo getAccessInfo() {
+        return accessInfo;
+    }
 }

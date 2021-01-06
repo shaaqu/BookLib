@@ -30,4 +30,12 @@ public class Author {
         this.name = name;
         this.books = books;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<VolumeInfo> getBooks() {
+        return books;
+    }
 }

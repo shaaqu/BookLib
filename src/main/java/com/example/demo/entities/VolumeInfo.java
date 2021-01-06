@@ -88,4 +88,72 @@ public class VolumeInfo {
         this.canonicalVolumeLink = canonicalVolumeLink;
         this.book = book;
     }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public long getPublishedDate() {
+        return publishedDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<IndustryIdentifier> getIndustryIdentifiers() {
+        return industryIdentifiers;
+    }
+
+    public ReadingModel getReadingModel() {
+        return readingModel;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public String getPrintType() {
+        return printType;
+    }
+
+    public String getContentVersion() {
+        return contentVersion;
+    }
+
+    public ImageLinks getImageLinks() {
+        return imageLinks;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getPreviewLink() {
+        return previewLink;
+    }
+
+    public String getInfoLink() {
+        return infoLink;
+    }
+
+    public String getCanonicalVolumeLink() {
+        return canonicalVolumeLink;
+    }
+
+    public Book getBook() {
+        return book;
+    }
 }

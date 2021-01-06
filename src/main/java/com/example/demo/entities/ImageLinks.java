@@ -32,4 +32,20 @@ public class ImageLinks {
         this.thumbnail = thumbnail;
         this.volumeInfo = volumeInfo;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getSmallThumbnail() {
+        return smallThumbnail;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public VolumeInfo getVolumeInfo() {
+        return volumeInfo;
+    }
 }

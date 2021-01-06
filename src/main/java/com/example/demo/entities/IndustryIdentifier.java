@@ -38,4 +38,20 @@ public class IndustryIdentifier {
         this.identifier = identifier;
         this.books = books;
     }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public List<VolumeInfo> getBooks() {
+        return books;
+    }
 }
