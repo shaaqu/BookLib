@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.MappingJsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import javax.json.*;
 
@@ -44,8 +45,6 @@ class BookItemDeserializerTest {
 
     ObjectCodec objectCodec = jsonParser.getCodec();
 
-
-
     @BeforeEach
     void init() throws IOException {
         objectMapper = new ObjectMapper();
@@ -62,8 +61,35 @@ class BookItemDeserializerTest {
         assertEquals("test", book.getEtag());
         assertEquals("test", book.getKind());
         assertEquals("test", book.getSelfLink());
+
+        assertEquals("test", book.getVolumeInfo().getTitle());
+//        assertEquals("1111-11-11", book.getVolumeInfo().getPublishedDate());
+        assertEquals("test", book.getVolumeInfo().getDescription());
+        assertEquals(1, book.getVolumeInfo().getPageCount());
+        assertEquals("test", book.getVolumeInfo().getPrintType());
+        assertTrue(book.getVolumeInfo().getCategories().contains("test1"));
+        assertTrue(book.getVolumeInfo().getCategories().contains("test2"));
+        assertEquals(1, book.getVolumeInfo().getAverageRating());
+        assertEquals(1, book.getVolumeInfo().getRatingCount());
+        assertEquals("test", book.getVolumeInfo().getMaturityRating());
+        assertEquals("test", book.getVolumeInfo().getAllowAnonLogging());
+        assertEquals("test", book.getVolumeInfo().getContentVersion());
+        assertEquals("test", book.getVolumeInfo().getLanguage());
+        assertEquals("test", book.getVolumeInfo().getPreviewLink());
+        assertEquals("test", book.getVolumeInfo().getInfoLink());
+        assertEquals("test", book.getVolumeInfo().getCanonicalVolumeLink());
+
+        assertEquals("test", book.getAccessInfo().getCountry());
+        assertEquals("test", book.getAccessInfo().getViewAbility());
+        assertTrue(book.getAccessInfo().isEmbeddable());
+        assertTrue(book.getAccessInfo().isPublicDomian());
+        assertEquals("test", book.getAccessInfo().getTextToSpeechPermission());
+        assertEquals("test", book.getAccessInfo().getWebReaderLink());
+        assertEquals("test", book.getAccessInfo().getAccessViewStatus());
+        assertTrue(book.getAccessInfo().isQuoteSharingAllowed());
     }
 
+    @Disabled
     @Test
     void accessInfoDeserialize() throws JsonProcessingException {
         AccessInfo accessInfo = bookItemDeserializer.readAccessInfo(jsonNodes.getPath(ACCESS_INFO));
@@ -92,7 +118,6 @@ class BookItemDeserializerTest {
 
 
         assertTrue(ePub.isAvailable());
-        assertEquals( "test", ePub.getBookId());
         assertEquals("test", ePub.getAcsTokenLink());
     }
 
@@ -108,7 +133,6 @@ class BookItemDeserializerTest {
     void industryIdentifierDeserialize() throws JsonProcessingException {
         IndustryIdentifier industryIdentifier = bookItemDeserializer.readIndustryIdentifier(jsonNodes.getPath(INDUSTRY_IDENTIFIER)).get(0);
 
-        assertEquals("test", industryIdentifier.getBookId());
         assertEquals("test", industryIdentifier.getType());
         assertEquals("test", industryIdentifier.getIdentifier());
     }
@@ -118,7 +142,6 @@ class BookItemDeserializerTest {
         com.example.demo.entities.PDF pdf = bookItemDeserializer.readPDF(jsonNodes.getPath(PDF));
 
         assertTrue(pdf.isAvailable());
-        assertEquals( "test", pdf.getBookId());
         assertEquals("test", pdf.getAcsTokenLink());
     }
 
@@ -126,7 +149,6 @@ class BookItemDeserializerTest {
     void readingModeDeserialize() throws JsonProcessingException {
         ReadingMode readingMode = bookItemDeserializer.readReadingMode(jsonNodes.getPath(READING_MODES));
 
-        assertEquals( "test", readingMode.getBookId());
         assertTrue(readingMode.isText());
         assertTrue(readingMode.isImage());
     }
@@ -135,7 +157,6 @@ class BookItemDeserializerTest {
     void saleInfoDeserialize() throws JsonProcessingException {
         SaleInfo saleInfo = bookItemDeserializer.readSaleInfo(jsonNodes.getPath(SALE_INFO));
 
-        assertEquals("test", saleInfo.getBookId());
         assertEquals("test", saleInfo.getCountry());
         assertEquals("test", saleInfo.getSaleAbility());
         assertTrue(saleInfo.isEbook());
@@ -145,10 +166,10 @@ class BookItemDeserializerTest {
     void searchInfoDeserialize() throws JsonProcessingException {
         SearchInfo searchInfo = bookItemDeserializer.readSearchInfo(jsonNodes.getPath(SEARCH_INFO));
 
-        assertEquals("test", searchInfo.getBookId());
         assertEquals("test", searchInfo.getTextSnippet());
     }
 
+    @Disabled
     @Test
     void volumeInfoDeserialize() throws JsonProcessingException {
         VolumeInfo volumeInfo = bookItemDeserializer.readVolumeInfo(jsonNodes.getPath(VOLUME_INFO));

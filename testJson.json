@@ -6,7 +6,7 @@
   "volumeInfo": {
     "title": "test",
     "authors": [
-      "test"
+      "test", "test1"
     ],
     "publisher": "test",
     "publishedDate": "1111-11-11",

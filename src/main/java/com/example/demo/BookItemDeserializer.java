@@ -31,7 +31,7 @@ public class BookItemDeserializer extends JsonDeserializer {
         SearchInfo searchInfo = readSearchInfo(jsonNodes.getPath(SEARCH_INFO));
 
         String kind = jsonNode.get("kind").asText();
-        bookId = jsonNode.get("bookId").asText();
+        bookId = jsonNode.get("id").asText();
         String etag = jsonNode.get("etag").asText();
         String selfLink = jsonNode.get("selfLink").asText();
 
@@ -60,17 +60,17 @@ public class BookItemDeserializer extends JsonDeserializer {
         return VolumeInfo.builder()
                 .bookId(bookId)
                 .title(jsonNode.get("title").asText(null))
-                .authors(readAuthor(jsonNode))
+                .authors(readAuthor(jsonNodes.getPath(AUTHORS)))
                 .publisher(jsonNode.get("publisher").asText(null))
                 .publishedDate(jsonNode.get("publishedDate").asLong(0))
                 .description(jsonNode.get("description").asText(null))
-                .industryIdentifiers(readIndustryIdentifier(jsonNode))
+                .industryIdentifiers(readIndustryIdentifier(jsonNodes.getPath(INDUSTRY_IDENTIFIER)))
                 .readingMode(readReadingMode(jsonNodes.getPath(READING_MODES)))
                 .pageCount(jsonNode.get("pageCount").asInt(0))
                 .printType(jsonNode.get("printType").asText(null))
-                .categories(jsonNode.findValuesAsText("categories"))
+                .categories(readList(jsonNode.get("categories")))
                 .averageRating(jsonNode.get("averageRating").asDouble())
-                .ratingCount(jsonNode.get("ratingCount").asInt())
+                .ratingCount(jsonNode.get("ratingsCount").asInt())
                 .maturityRating(jsonNode.get("maturityRating").asText(null))
                 .allowAnonLogging(jsonNode.get("allowAnonLogging").asText(null))
                 .contentVersion(jsonNode.get("contentVersion").asText(null))
@@ -97,7 +97,7 @@ public class BookItemDeserializer extends JsonDeserializer {
                 .country(jsonNode.get("country").asText(null))
                 .viewAbility(jsonNode.get("viewability").asText(null))
                 .embeddable(jsonNode.get("embeddable").asBoolean(false))
-                .publicDomian(jsonNode.get("publicDomian").asBoolean(false))
+                .publicDomian(jsonNode.get("publicDomain").asBoolean(false))
                 .textToSpeechPermission(jsonNode.get("textToSpeechPermission").asText(null))
                 .ePub(readEPub(jsonNodes.getPath(EPUB)))
                 .pdf(readPDF(jsonNodes.getPath(PDF)))
@@ -107,11 +107,18 @@ public class BookItemDeserializer extends JsonDeserializer {
                 .build();
     }
 
+    public List<String> readList(JsonNode jsonNode){
+        List<String> list = new ArrayList<>();
+        jsonNode.forEach(
+                (v) -> list.add(v.asText())
+        );
+        return list;
+    }
+
     public List<Author> readAuthor(JsonNode jsonNode){
         List<Author> authors = new ArrayList<>();
-
-        jsonNode.findValuesAsText("authors").forEach(
-                (v) -> authors.add(Author.builder().name(v).build())
+        jsonNode.forEach(
+                (v) -> authors.add(Author.builder().name(v.asText()).build())
         );
 
         return authors;
@@ -133,11 +140,11 @@ public class BookItemDeserializer extends JsonDeserializer {
     public List<IndustryIdentifier> readIndustryIdentifier(JsonNode jsonNode){
         List<IndustryIdentifier> industryIdentifiers = new ArrayList<>();
 
-        jsonNode.findValuesAsText("industryIdentifiers").forEach(
+        jsonNode.forEach(
                 (v) -> industryIdentifiers.add(IndustryIdentifier.builder()
                         .bookId(bookId)
-                        .type(jsonNode.get("type").asText(null))
-                        .identifier(jsonNode.get("identifier").asText(null))
+                        .type(v.get("type").asText(null))
+                        .identifier(v.get("identifier").asText(null))
                         .build())
         );
 
