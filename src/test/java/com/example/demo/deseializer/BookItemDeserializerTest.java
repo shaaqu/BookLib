@@ -2,6 +2,7 @@ package com.example.demo.deseializer;
 
 import com.example.demo.BookItemDeserializer;
 import com.example.demo.JSONNodes;
+import com.example.demo.JSONReader;
 import com.example.demo.entities.*;
 import com.example.demo.services.BookJsonModule;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -15,10 +16,9 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import javax.json.*;
+import org.springframework.test.context.event.annotation.BeforeTestExecution;
 
 import java.io.IOException;
-import java.io.StringReader;
 
 import static com.example.demo.JSONNodes.Paths.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,36 +26,40 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BookItemDeserializerTest {
 
-    ObjectMapper objectMapper;
-    JsonNode jsonNode;
+    BookItemDeserializer bookItemDeserializer = new BookItemDeserializer("testJson.json");
     JSONNodes jsonNodes;
+    JsonNode jsonNode;
 
-    String jsonStr = JSONReader.readJSON("testJson.json");
-    BookItemDeserializer bookItemDeserializer = new BookItemDeserializer();
-    JsonFactory jsonFactory = new MappingJsonFactory();
-    JsonParser jsonParser;
+    @BeforeEach
+    private void init() {
+        ObjectMapper objectMapper;
 
-    {
+        String jsonStr = JSONReader.readJSON("testJson.json");
+        JsonFactory jsonFactory = new MappingJsonFactory();
+        JsonParser jsonParser = null;
+
         try {
             jsonParser = jsonFactory.createParser(jsonStr);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
-    ObjectCodec objectCodec = jsonParser.getCodec();
-
-    @BeforeEach
-    void init() throws IOException {
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new BookJsonModule());
-        jsonNode = objectCodec.readTree(jsonParser);
+
+        ObjectCodec objectCodec = jsonParser.getCodec();
+        jsonNode = null;
+        try {
+            jsonNode = objectCodec.readTree(jsonParser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         jsonNodes = new JSONNodes(jsonNode);
     }
 
     @Test
     void bookDeserialize() throws JsonProcessingException {
-        Book book = objectMapper.readValue(jsonStr, Book.class);
+        Book book = bookItemDeserializer.deserialize();
 
         assertEquals("test", book.getBookId());
         assertEquals("test", book.getEtag());

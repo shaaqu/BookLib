@@ -1,4 +1,4 @@
-package com.example.demo.deseializer;
+package com.example.demo;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

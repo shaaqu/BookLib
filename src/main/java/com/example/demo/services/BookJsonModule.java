@@ -11,7 +11,5 @@ import java.util.Map;
 
 @Service
 public class BookJsonModule extends SimpleModule {
-    public BookJsonModule() {
-        this.addDeserializer(Book.class, new BookItemDeserializer());
-    }
+
 }

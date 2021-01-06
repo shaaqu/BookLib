@@ -1,12 +1,12 @@
 package com.example.demo;
 
 import com.example.demo.entities.*;
+import com.example.demo.services.BookJsonModule;
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,17 +17,19 @@ import java.util.List;
 
 import static com.example.demo.JSONNodes.Paths.*;
 
-public class BookItemDeserializer extends JsonDeserializer {
+public class BookItemDeserializer{
 
     String bookId;
     JSONNodes jsonNodes;
+    JsonNode jsonNode;
     Book book;
 
-    @Override
-    public Object deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-        ObjectCodec objectCodec = jsonParser.getCodec();
-        JsonNode jsonNode = objectCodec.readTree(jsonParser);
-        jsonNodes = new JSONNodes(jsonNode);
+    public BookItemDeserializer(String path) {
+        init(path);
+    }
+
+    public Book deserialize(){
+
         AccessInfo accessInfo = readAccessInfo(jsonNodes.getPath(ACCESS_INFO));
         SaleInfo saleInfo = readSaleInfo(jsonNodes.getPath(SALE_INFO));
         VolumeInfo volumeInfo = readVolumeInfo(jsonNodes.getPath(VOLUME_INFO));
@@ -50,6 +52,32 @@ public class BookItemDeserializer extends JsonDeserializer {
                 .build();
 
         return book;
+    }
+
+    private void init(String path) {
+        ObjectMapper objectMapper;
+
+        String jsonStr = JSONReader.readJSON(path);
+        JsonFactory jsonFactory = new MappingJsonFactory();
+        JsonParser jsonParser = null;
+
+        try {
+            jsonParser = jsonFactory.createParser(jsonStr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new BookJsonModule());
+
+        ObjectCodec objectCodec = jsonParser.getCodec();
+        jsonNode = null;
+        try {
+            jsonNode = objectCodec.readTree(jsonParser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        jsonNodes = new JSONNodes(jsonNode);
     }
 
     public SearchInfo readSearchInfo(JsonNode jsonNode) {
