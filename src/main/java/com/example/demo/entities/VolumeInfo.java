@@ -17,7 +17,7 @@ public class VolumeInfo {
     @Column(name = "title")
     private String title;
 
-    @ManyToMany(mappedBy = "volumeInfo")
+    @ManyToMany(mappedBy = "books")
     private List<Author> authors = new ArrayList<Author>();
 
     @Column(name = "publisher")
@@ -29,7 +29,7 @@ public class VolumeInfo {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "volumeInfo")
+    @ManyToMany(mappedBy = "books")
     private List<IndustryIdentifier> industryIdentifiers = new ArrayList<IndustryIdentifier>();
 
     @ManyToOne

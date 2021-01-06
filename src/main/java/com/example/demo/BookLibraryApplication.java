@@ -16,10 +16,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 @EnableJpaRepositories("com.example.demo.repositories")
 public class BookLibraryApplication extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
-        SpringApplication.run(BookLibraryApplication.class, args);
-    }
-
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(BookLibraryApplication.class);
@@ -34,5 +30,9 @@ public class BookLibraryApplication extends SpringBootServletInitializer {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(BookLibraryApplication.class, args);
     }
 }

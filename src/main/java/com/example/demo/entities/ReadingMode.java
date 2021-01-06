@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "readingModel")
+@Table(name = "readingMode")
 public class ReadingMode {
 
     @Id
@@ -20,7 +20,7 @@ public class ReadingMode {
     private boolean image;
 
     @Column(name = "books")
-    @OneToMany(mappedBy = "readingModel")
+    @OneToMany(mappedBy = "readingMode")
     private List<VolumeInfo> volumeInfoList;
 
     public ReadingMode() {

@@ -5,7 +5,7 @@ import lombok.Builder;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ImageLinks")
+@Table(name = "imageLinks")
 public class ImageLinks {
 
     @Id
@@ -19,7 +19,7 @@ public class ImageLinks {
     @Column(name = "thumbnail")
     private String thumbnail;
 
-    @OneToOne(mappedBy = "ImageLinks")
+    @OneToOne(mappedBy = "imageLinks")
     private VolumeInfo volumeInfo;
 
     public ImageLinks() {
