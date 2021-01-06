@@ -39,17 +39,24 @@ public class BookItemDeserializer extends JsonDeserializer {
                 .build();
     }
 
-    private SearchInfo readSearchInfo(JsonNode searchInfo) {
+    public SearchInfo readSearchInfo(JsonNode jsonNode) {
     }
 
-    private VolumeInfo readVolumeInfo(JsonNode volumeInfo) {
+    public VolumeInfo readVolumeInfo(JsonNode jsonNode) {
     }
 
-    private SaleInfo readSaleInfo(JsonNode saleInfo) {
+    public SaleInfo readSaleInfo(JsonNode jsonNode) {
     }
 
-    private AccessInfo readAccessInfo(JsonNode jsonNode) {
+    public AccessInfo readAccessInfo(JsonNode jsonNode) {
 
     }
+
+    public Author readAuthor(JsonNode jsonNode){}
+    public EPub readEPub(JsonNode jsonNode){}
+    public ImageLinks readImageLinks(JsonNode jsonNode){}
+    public IndustryIdentifier readIndustryIdentifier(JsonNode jsonNode){}
+    public PDF readPDF(JsonNode jsonNode){}
+    public ReadingModel readReadingModel(JsonNode jsonNode){}
 
 }
