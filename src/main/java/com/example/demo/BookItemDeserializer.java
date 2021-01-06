@@ -9,7 +9,10 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.demo.JSONNodes.Paths.*;
@@ -57,12 +60,19 @@ public class BookItemDeserializer extends JsonDeserializer {
     }
 
     public VolumeInfo readVolumeInfo(JsonNode jsonNode) {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonNode.get("publishedDate").asText(null));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         return VolumeInfo.builder()
                 .bookId(bookId)
                 .title(jsonNode.get("title").asText(null))
                 .authors(readAuthor(jsonNodes.getPath(AUTHORS)))
                 .publisher(jsonNode.get("publisher").asText(null))
-                .publishedDate(jsonNode.get("publishedDate").asLong(0))
+                .publishedDate(date)
                 .description(jsonNode.get("description").asText(null))
                 .industryIdentifiers(readIndustryIdentifier(jsonNodes.getPath(INDUSTRY_IDENTIFIER)))
                 .readingMode(readReadingMode(jsonNodes.getPath(READING_MODES)))
