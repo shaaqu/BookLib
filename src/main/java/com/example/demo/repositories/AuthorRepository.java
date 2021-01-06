@@ -1,4 +1,13 @@
 package com.example.demo.repositories;
 
-public interface AuthorRepository {
+import com.example.demo.entities.Author;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+@EnableJpaRepositories
+public interface AuthorRepository extends CrudRepository<Author, String>, PagingAndSortingRepository<Author, String> {
+
+    Author save(Author author);
+
 }
