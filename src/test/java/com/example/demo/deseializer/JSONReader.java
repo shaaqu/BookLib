@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class JSONReader {
-    @SuppressWarnings("unchecked")
+
     public static String readJSON(String path) {
         JSONParser jsonParser = new JSONParser();
 

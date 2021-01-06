@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "readingModel")
-public class ReadingModel {
+public class ReadingMode {
 
     @Id
     @Column(name = "bookId")
@@ -23,11 +23,11 @@ public class ReadingModel {
     @OneToMany(mappedBy = "readingModel")
     private List<VolumeInfo> volumeInfoList;
 
-    public ReadingModel() {
+    public ReadingMode() {
     }
 
     @Builder
-    public ReadingModel(String bookId, boolean text, boolean image, List<VolumeInfo> volumeInfoList) {
+    public ReadingMode(String bookId, boolean text, boolean image, List<VolumeInfo> volumeInfoList) {
         this.bookId = bookId;
         this.text = text;
         this.image = image;

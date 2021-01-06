@@ -2,7 +2,9 @@ package com.example.demo.deseializer;
 
 import com.example.demo.BookItemDeserializer;
 import com.example.demo.entities.AccessInfo;
+import com.example.demo.entities.Author;
 import com.example.demo.entities.Book;
+import com.example.demo.entities.EPub;
 import com.example.demo.services.BookJsonModule;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -51,13 +53,29 @@ class BookItemDeserializerTest {
     void accessInfoDeserialize() throws JsonProcessingException {
         AccessInfo accessInfo = bookItemDeserializer.readAccessInfo(jsonNode.get("accessInfo"));
 
+        assertEquals("test", accessInfo.getBookId());
+        assertEquals("test", accessInfo.getCountry());
+        assertEquals("test", accessInfo.getViewAbility());
+        assertTrue(accessInfo.isEmbeddable());
+        assertTrue(accessInfo.isPublicDomian());
+        assertEquals("test", accessInfo.getTextToSpeechPermission());
+        assertEquals("test", accessInfo.getWebReaderLink());
+        assertEquals("test", accessInfo.getAccessViewStatus());
+        assertTrue(accessInfo.isQuoteSharingAllowed());
     }
 
     @Test
-    void authorDeserialize() throws JsonProcessingException {}
+    void authorDeserialize() throws JsonProcessingException {
+        Author author = bookItemDeserializer.readAuthor(jsonNode.get("").get("authors"));
+
+        assertEquals("test", author.getName());
+    }
 
     @Test
-    void epubDeserialize() throws JsonProcessingException {}
+    void epubDeserialize() throws JsonProcessingException {
+        EPub ePub = bookItemDeserializer.readEPub(jsonNode.get("epub"))
+
+    }
 
     @Test
     void imageLinksDeserialize() throws JsonProcessingException {}

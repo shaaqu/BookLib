@@ -33,8 +33,8 @@ public class VolumeInfo {
     private List<IndustryIdentifier> industryIdentifiers = new ArrayList<IndustryIdentifier>();
 
     @ManyToOne
-    @JoinColumn(name = "readingModel")
-    private ReadingModel readingModel;
+    @JoinColumn(name = "readingMode")
+    private ReadingMode readingMode;
 
     @Column(name = "pageCount")
     private int pageCount;
@@ -69,7 +69,7 @@ public class VolumeInfo {
     public VolumeInfo() {}
 
     @Builder
-    public VolumeInfo(String bookId, String title, List<Author> authors, String publisher, long publishedDate, String description, List<IndustryIdentifier> industryIdentifiers, ReadingModel readingModel, int pageCount, String printType, String contentVersion, ImageLinks imageLinks, String language, String previewLink, String infoLink, String canonicalVolumeLink, Book book) {
+    public VolumeInfo(String bookId, String title, List<Author> authors, String publisher, long publishedDate, String description, List<IndustryIdentifier> industryIdentifiers, ReadingMode readingMode, int pageCount, String printType, String contentVersion, ImageLinks imageLinks, String language, String previewLink, String infoLink, String canonicalVolumeLink, Book book) {
         this.bookId = bookId;
         this.title = title;
         this.authors = authors;
@@ -77,7 +77,7 @@ public class VolumeInfo {
         this.publishedDate = publishedDate;
         this.description = description;
         this.industryIdentifiers = industryIdentifiers;
-        this.readingModel = readingModel;
+        this.readingMode = readingMode;
         this.pageCount = pageCount;
         this.printType = printType;
         this.contentVersion = contentVersion;
@@ -117,8 +117,8 @@ public class VolumeInfo {
         return industryIdentifiers;
     }
 
-    public ReadingModel getReadingModel() {
-        return readingModel;
+    public ReadingMode getReadingMode() {
+        return readingMode;
     }
 
     public int getPageCount() {

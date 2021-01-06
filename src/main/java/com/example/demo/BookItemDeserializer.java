@@ -57,6 +57,6 @@ public class BookItemDeserializer extends JsonDeserializer {
     public ImageLinks readImageLinks(JsonNode jsonNode){}
     public IndustryIdentifier readIndustryIdentifier(JsonNode jsonNode){}
     public PDF readPDF(JsonNode jsonNode){}
-    public ReadingModel readReadingModel(JsonNode jsonNode){}
+    public ReadingMode readReadingModel(JsonNode jsonNode){}
 
 }
