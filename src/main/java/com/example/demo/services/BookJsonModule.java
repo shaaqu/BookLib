@@ -26,9 +26,10 @@ public class BookJsonModule {
     SaleInfoRepository saleInfoRepository;
     SearchInfoRepository searchInfoRepository;
     VolumeInfoRepository volumeInfoRepository;
+    AuthorRepository authorRepository;
 
     @Autowired
-    public BookJsonModule(BookRepository bookRepository, AccessInfoRepository accessInfoRepository, EPubRepository ePubRepository, ImageLinksRepository imageLinksRepository, IndustryIdentifierRepository industryIdentifierRepository, PDFRepository pdfRepository, ReadingModeRepository readingModeRepository, SaleInfoRepository saleInfoRepository, SearchInfoRepository searchInfoRepository, VolumeInfoRepository volumeInfoRepository) {
+    public BookJsonModule(BookRepository bookRepository, AccessInfoRepository accessInfoRepository, EPubRepository ePubRepository, ImageLinksRepository imageLinksRepository, IndustryIdentifierRepository industryIdentifierRepository, PDFRepository pdfRepository, ReadingModeRepository readingModeRepository, SaleInfoRepository saleInfoRepository, SearchInfoRepository searchInfoRepository, VolumeInfoRepository volumeInfoRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
         this.accessInfoRepository = accessInfoRepository;
         this.ePubRepository = ePubRepository;
@@ -39,6 +40,7 @@ public class BookJsonModule {
         this.saleInfoRepository = saleInfoRepository;
         this.searchInfoRepository = searchInfoRepository;
         this.volumeInfoRepository = volumeInfoRepository;
+        this.authorRepository = authorRepository;
     }
 
     public void createDataBase() {
@@ -51,6 +53,37 @@ public class BookJsonModule {
             v.getSearchInfo().setBook(v);
             bookRepository.save(v);
 
+            saveVolumeInfo(v);
+            saveSaleInfo(v);
+            saveAccessInfo(v);
+            saveSearchInfo(v);
+
         });
+    }
+
+    private void saveSearchInfo(Book v) {
+        searchInfoRepository.save(v.getSearchInfo());
+    }
+
+    private void saveAccessInfo(Book v) {
+        accessInfoRepository.save(v.getAccessInfo());
+        pdfRepository.save(v.getAccessInfo().getPdf());
+        ePubRepository.save(v.getAccessInfo().getePub());
+    }
+
+    private void saveSaleInfo(Book v) {
+        saleInfoRepository.save(v.getSaleInfo());
+    }
+
+    private void saveVolumeInfo(Book v) {
+        volumeInfoRepository.save(v.getVolumeInfo());
+        v.getVolumeInfo().getAuthors().forEach(a -> {
+            authorRepository.save(a);
+        });
+        v.getVolumeInfo().getIndustryIdentifiers().forEach(i -> {
+            industryIdentifierRepository.save(i);
+        });
+        readingModeRepository.save(v.getVolumeInfo().getReadingMode());
+        imageLinksRepository.save(v.getVolumeInfo().getImageLinks());
     }
 }
