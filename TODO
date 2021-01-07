@@ -1,5 +1,5 @@
 TODO ENDPOINTS:
-        - dla rankingu autorów. RETURN: lista autorów wg oceny książki (nie uwzględniamy nieocenionych).
+        - dla kategorii książek. RETURN: lista książek/pusta lista
 TODO Jakość kodu:
         - Użyj np. SonarLint
         - Użyj co najmniej jednego wzorca projektowego
