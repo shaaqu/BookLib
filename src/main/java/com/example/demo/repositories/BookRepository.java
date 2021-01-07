@@ -8,4 +8,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 @EnableJpaRepositories
 public interface BookRepository extends CrudRepository<Book, String>, PagingAndSortingRepository<Book, String> {
     Book save(Book book);
+    Book getBookByBookId(String id);
 }
