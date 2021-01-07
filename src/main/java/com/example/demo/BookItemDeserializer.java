@@ -19,28 +19,42 @@ import static com.example.demo.JSONNodes.Paths.*;
 
 public class BookItemDeserializer{
 
+    String path;
     String bookId;
     JSONNodes jsonNodes;
-    JsonNode jsonNode;
-    Book book;
 
     public BookItemDeserializer(String path) {
-        init(path);
+        this.path = path;
     }
 
-    public Book deserialize(){
+    public List<Book> deserializeDB() {
+        List<Book> books = new ArrayList<>();
 
+        JsonNode jsonNode = init(path).get("items");
+        int i = 0;
+        jsonNode.forEach(
+                (v) -> {
+                    books.add(deserialize(v));
+                }
+        );
+
+        return books;
+    }
+
+    public Book deserialize(JsonNode jsonNode){
+
+        jsonNodes = new JSONNodes(jsonNode);
         AccessInfo accessInfo = readAccessInfo(jsonNodes.getPath(ACCESS_INFO));
         SaleInfo saleInfo = readSaleInfo(jsonNodes.getPath(SALE_INFO));
         VolumeInfo volumeInfo = readVolumeInfo(jsonNodes.getPath(VOLUME_INFO));
         SearchInfo searchInfo = readSearchInfo(jsonNodes.getPath(SEARCH_INFO));
 
-        String kind = jsonNode.get("kind").asText();
-        bookId = jsonNode.get("id").asText();
-        String etag = jsonNode.get("etag").asText();
-        String selfLink = jsonNode.get("selfLink").asText();
+        String kind = getValueStr(jsonNode, "kind");
+        bookId = getValueStr(jsonNode, "id");
+        String etag = getValueStr(jsonNode, "etag");
+        String selfLink = getValueStr(jsonNode, "selfLink");
 
-        book = Book.builder()
+        return Book.builder()
                 .kind(kind)
                 .bookId(bookId)
                 .etag(etag)
@@ -50,13 +64,9 @@ public class BookItemDeserializer{
                 .accessInfo(accessInfo)
                 .searchInfo(searchInfo)
                 .build();
-
-        return book;
     }
 
-    private void init(String path) {
-        ObjectMapper objectMapper;
-
+    private JsonNode init(String path) {
         String jsonStr = JSONReader.readJSON(path);
         JsonFactory jsonFactory = new MappingJsonFactory();
         JsonParser jsonParser = null;
@@ -67,140 +77,199 @@ public class BookItemDeserializer{
             e.printStackTrace();
         }
 
-        objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new BookJsonModule());
-
         ObjectCodec objectCodec = jsonParser.getCodec();
-        jsonNode = null;
+        JsonNode jsonNode = null;
         try {
             jsonNode = objectCodec.readTree(jsonParser);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        jsonNodes = new JSONNodes(jsonNode);
+        return jsonNode;
     }
 
     public SearchInfo readSearchInfo(JsonNode jsonNode) {
         return SearchInfo.builder()
                 .bookId(bookId)
-                .textSnippet(jsonNode.get("textSnippet").asText(null))
+                .textSnippet(getValueStr(jsonNode, "textSnippet"))
                 .build();
     }
 
     public VolumeInfo readVolumeInfo(JsonNode jsonNode) {
         Date date = null;
-        try {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonNode.get("publishedDate").asText(null));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (jsonNode.get("publishedDate") != null){
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonNode.get("publishedDate").asText(null));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-
         return VolumeInfo.builder()
                 .bookId(bookId)
-                .title(jsonNode.get("title").asText(null))
+                .title(getValueStr(jsonNode, "title"))
                 .authors(readAuthor(jsonNodes.getPath(AUTHORS)))
-                .publisher(jsonNode.get("publisher").asText(null))
+                .publisher(getValueStr(jsonNode, "publisher"))
                 .publishedDate(date)
-                .description(jsonNode.get("description").asText(null))
+                .description(getValueStr(jsonNode, "description"))
                 .industryIdentifiers(readIndustryIdentifier(jsonNodes.getPath(INDUSTRY_IDENTIFIER)))
                 .readingMode(readReadingMode(jsonNodes.getPath(READING_MODES)))
-                .pageCount(jsonNode.get("pageCount").asInt(0))
-                .printType(jsonNode.get("printType").asText(null))
+                .pageCount(getValueInt(jsonNode, "pageCount"))
+                .printType(getValueStr(jsonNode, "printType"))
                 .categories(readList(jsonNode.get("categories")))
-                .averageRating(jsonNode.get("averageRating").asDouble())
-                .ratingCount(jsonNode.get("ratingsCount").asInt())
-                .maturityRating(jsonNode.get("maturityRating").asText(null))
-                .allowAnonLogging(jsonNode.get("allowAnonLogging").asText(null))
-                .contentVersion(jsonNode.get("contentVersion").asText(null))
+                .averageRating(getValueDouble(jsonNode, "averageRating"))
+                .ratingCount(getValueInt(jsonNode, "ratingCount"))
+                .maturityRating(getValueStr(jsonNode, "maturityRating"))
+                .allowAnonLogging(getValueStr(jsonNode, "allowAnonLogging"))
+                .contentVersion(getValueStr(jsonNode, "contentVersion"))
                 .imageLinks(readImageLinks(jsonNodes.getPath(IMAGE_LINKS)))
-                .language(jsonNode.get("language").asText(null))
-                .previewLink(jsonNode.get("previewLink").asText(null))
-                .infoLink(jsonNode.get("infoLink").asText(null))
-                .canonicalVolumeLink(jsonNode.get("canonicalVolumeLink").asText(null))
+                .language(getValueStr(jsonNode, "language"))
+                .previewLink(getValueStr(jsonNode, "previewLink"))
+                .infoLink(getValueStr(jsonNode, "infoLink"))
+                .canonicalVolumeLink(getValueStr(jsonNode, "canonicalVolumeLink"))
                 .build();
     }
 
     public SaleInfo readSaleInfo(JsonNode jsonNode) {
         return SaleInfo.builder()
                 .bookId(bookId)
-                .country(jsonNode.get("country").asText(null))
-                .saleAbility(jsonNode.get("saleability").asText(null))
-                .isEbook(jsonNode.get("isEbook").asBoolean(false))
+                .country(getValueStr(jsonNode, "country"))
+                .saleAbility(getValueStr(jsonNode, "saleAbility"))
+                .isEbook(getValueBoolean(jsonNode, "isEbook"))
                 .build();
     }
 
     public AccessInfo readAccessInfo(JsonNode jsonNode) {
         return AccessInfo.builder()
                 .bookId(bookId)
-                .country(jsonNode.get("country").asText(null))
-                .viewAbility(jsonNode.get("viewability").asText(null))
-                .embeddable(jsonNode.get("embeddable").asBoolean(false))
-                .publicDomian(jsonNode.get("publicDomain").asBoolean(false))
-                .textToSpeechPermission(jsonNode.get("textToSpeechPermission").asText(null))
+                .country(getValueStr(jsonNode, "country"))
+                .viewAbility(getValueStr(jsonNode, "viewability"))
+                .embeddable(getValueBoolean(jsonNode, "embeddable"))
+                .publicDomian(getValueBoolean(jsonNode, "publicDomian"))
+                .textToSpeechPermission(getValueStr(jsonNode, "textToSpeechPermission"))
                 .ePub(readEPub(jsonNodes.getPath(EPUB)))
                 .pdf(readPDF(jsonNodes.getPath(PDF)))
-                .webReaderLink(jsonNode.get("webReaderLink").asText(null))
-                .accessViewStatus(jsonNode.get("accessViewStatus").asText(null))
-                .quoteSharingAllowed(jsonNode.get("quoteSharingAllowed").asBoolean(false))
+                .webReaderLink(getValueStr(jsonNode, "webReaderLink"))
+                .accessViewStatus(getValueStr(jsonNode, "accessViewStatus"))
+                .quoteSharingAllowed(getValueBoolean(jsonNode, "quoteSharingAllowed"))
                 .build();
     }
 
     public List<String> readList(JsonNode jsonNode){
         List<String> list = new ArrayList<>();
-        jsonNode.forEach(
-                (v) -> list.add(v.asText())
-        );
+        if (jsonNode != null) {
+            jsonNode.forEach(
+                    (v) -> list.add(v.asText())
+            );
+        }
         return list;
     }
 
     public List<Author> readAuthor(JsonNode jsonNode){
         List<Author> authors = new ArrayList<>();
-        jsonNode.forEach(
-                (v) -> authors.add(Author.builder().name(v.asText()).build())
-        );
+        if (jsonNode != null) {
+            jsonNode.forEach(
+                    (v) -> authors.add(Author.builder().name(v.asText()).build())
+            );
+        }
 
         return authors;
     }
     public EPub readEPub(JsonNode jsonNode){
         return EPub.builder()
                 .bookId(bookId)
-                .isAvailable(jsonNode.get("isAvailable").asBoolean(false))
-                .acsTokenLink(jsonNode.get("acsTokenLink").asText(null))
+                .isAvailable(getValueBoolean(jsonNode, "isAvailable"))
+                .acsTokenLink(getValueStr(jsonNode, "acsTokenLink"))
                 .build();
 
     }
     public ImageLinks readImageLinks(JsonNode jsonNode){
         return ImageLinks.builder()
-                .smallThumbnail(jsonNode.get("smallThumbnail").asText(null))
-                .thumbnail(jsonNode.get("thumbnail").asText(null))
+                .smallThumbnail(getValueStr(jsonNode, "smallThumbnail"))
+                .thumbnail(getValueStr(jsonNode, "thumbnail"))
                 .build();
     }
     public List<IndustryIdentifier> readIndustryIdentifier(JsonNode jsonNode){
         List<IndustryIdentifier> industryIdentifiers = new ArrayList<>();
 
-        jsonNode.forEach(
-                (v) -> industryIdentifiers.add(IndustryIdentifier.builder()
-                        .bookId(bookId)
-                        .type(v.get("type").asText(null))
-                        .identifier(v.get("identifier").asText(null))
-                        .build())
-        );
+        if (jsonNode != null){
+            jsonNode.forEach(
+                    (v) -> industryIdentifiers.add(IndustryIdentifier.builder()
+                            .bookId(bookId)
+                            .type(v.get("type").asText(null))
+                            .identifier(v.get("identifier").asText(null))
+                            .build())
+            );
+        }
 
         return industryIdentifiers;
     }
     public com.example.demo.entities.PDF readPDF(JsonNode jsonNode){
         return com.example.demo.entities.PDF.builder()
                 .bookId(bookId)
-                .isAvailable(jsonNode.get("isAvailable").asBoolean(false))
-                .acsTokenLink(jsonNode.get("acsTokenLink").asText(null))
+                .isAvailable(getValueBoolean(jsonNode, "isAvailable"))
+                .acsTokenLink(getValueStr(jsonNode, "acsTokenLink"))
                 .build();
     }
     public ReadingMode readReadingMode(JsonNode jsonNode){
         return ReadingMode.builder()
                 .bookId(bookId)
-                .image(jsonNode.get("image").asBoolean(false))
-                .text(jsonNode.get("text").asBoolean(false))
+                .image(getValueBoolean(jsonNode, "image"))
+                .text(getValueBoolean(jsonNode, "text"))
                 .build();
+    }
+
+    private int getValueInt(JsonNode jsonNode, String key) {
+        if (jsonNode == null) {
+            return -1;
+        }
+        if (jsonNode.has(key)) {
+            return jsonNode.get(key).asInt();
+        } else {
+            return -1;
+        }
+    }
+
+    private String getValueStr(JsonNode jsonNode, String key) {
+        if (jsonNode == null) {
+            return null;
+        }
+        if (jsonNode.has(key)) {
+            return jsonNode.get(key).asText();
+        } else {
+            return null;
+        }
+    }
+
+    private long getValueLong(JsonNode jsonNode, String key) {
+        if (jsonNode == null) {
+            return -1;
+        }
+        if (jsonNode.has(key)) {
+            return jsonNode.get(key).asLong();
+        } else {
+            return -1;
+        }
+    }
+
+    private double getValueDouble(JsonNode jsonNode, String key) {
+        if (jsonNode == null) {
+            return 0;
+        }
+        if (jsonNode.has(key) && jsonNode != null) {
+            return jsonNode.get(key).asDouble();
+        } else {
+            return 0;
+        }
+    }
+
+    private boolean getValueBoolean(JsonNode jsonNode, String key) {
+        if (jsonNode == null) {
+            return false;
+        }
+        if (jsonNode.has(key) && jsonNode != null) {
+            return jsonNode.get(key).asBoolean();
+        } else {
+            return false;
+        }
     }
 
 }

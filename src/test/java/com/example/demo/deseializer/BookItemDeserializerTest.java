@@ -4,21 +4,18 @@ import com.example.demo.BookItemDeserializer;
 import com.example.demo.JSONNodes;
 import com.example.demo.JSONReader;
 import com.example.demo.entities.*;
-import com.example.demo.services.BookJsonModule;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MappingJsonFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.example.demo.JSONNodes.Paths.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,8 +29,6 @@ class BookItemDeserializerTest {
 
     @BeforeEach
     private void init() {
-        ObjectMapper objectMapper;
-
         String jsonStr = JSONReader.readJSON("testJson.json");
         JsonFactory jsonFactory = new MappingJsonFactory();
         JsonParser jsonParser = null;
@@ -43,9 +38,6 @@ class BookItemDeserializerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new BookJsonModule());
 
         ObjectCodec objectCodec = jsonParser.getCodec();
         jsonNode = null;
@@ -58,8 +50,16 @@ class BookItemDeserializerTest {
     }
 
     @Test
+    void deserializeDBTest() {
+        bookItemDeserializer = new BookItemDeserializer("books.json");
+        List<Book> books = bookItemDeserializer.deserializeDB();
+
+        assertFalse(books.isEmpty());
+    }
+
+    @Test
     void bookDeserialize() throws JsonProcessingException {
-        Book book = bookItemDeserializer.deserialize();
+        Book book = bookItemDeserializer.deserialize(jsonNode);
 
         assertEquals("test", book.getBookId());
         assertEquals("test", book.getEtag());
