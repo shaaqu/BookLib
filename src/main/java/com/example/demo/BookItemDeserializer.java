@@ -95,20 +95,13 @@ public class BookItemDeserializer{
     }
 
     public VolumeInfo readVolumeInfo(JsonNode jsonNode) {
-        Date date = null;
-        if (jsonNode.get("publishedDate") != null){
-            try {
-                date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonNode.get("publishedDate").asText(null));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
+
         return VolumeInfo.builder()
                 .bookId(bookId)
                 .title(getValueStr(jsonNode, "title"))
                 .authors(readAuthor(jsonNodes.getPath(AUTHORS)))
                 .publisher(getValueStr(jsonNode, "publisher"))
-                .publishedDate(date)
+                .publishedDate(getDate(jsonNode))
                 .description(getValueStr(jsonNode, "description"))
                 .industryIdentifiers(readIndustryIdentifier(jsonNodes.getPath(INDUSTRY_IDENTIFIER)))
                 .readingMode(readReadingMode(jsonNodes.getPath(READING_MODES)))
@@ -126,6 +119,26 @@ public class BookItemDeserializer{
                 .infoLink(getValueStr(jsonNode, "infoLink"))
                 .canonicalVolumeLink(getValueStr(jsonNode, "canonicalVolumeLink"))
                 .build();
+    }
+
+    private long getDate(JsonNode jsonNode) {
+        Date date = null;
+        long time = -1;
+        if (jsonNode.get("publishedDate") != null){
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonNode.get("publishedDate").asText(null));
+                time = date.getTime() / 1000L;
+            } catch (ParseException e) {
+                try {
+                    date = new SimpleDateFormat("yyyy").parse(jsonNode.get("publishedDate").asText(null));
+                } catch (ParseException parseException) {
+                    parseException.printStackTrace();
+                    time = date.getTime() / 1000L;
+                }
+            }
+        }
+
+        return time;
     }
 
     public SaleInfo readSaleInfo(JsonNode jsonNode) {
