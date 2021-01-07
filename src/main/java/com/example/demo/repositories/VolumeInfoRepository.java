@@ -14,6 +14,8 @@ public interface VolumeInfoRepository extends CrudRepository<VolumeInfo, String>
     VolumeInfo save(VolumeInfo volumeInfo);
     VolumeInfo getVolumeInfoByIndustryIdentifiers(IndustryIdentifier industryIdentifier);
 
+    List<VolumeInfo> findAll();
+
     @Query("select * from VolumeInfo where averageRating is not null ")
     List<VolumeInfo> findWithRating();
 }
