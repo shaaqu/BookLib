@@ -1,5 +1,4 @@
 TODO ENDPOINTS:
-        - dla kategorii książek. RETURN: lista książek/pusta lista
         - dla rankingu autorów. RETURN: lista autorów wg oceny książki (nie uwzględniamy nieocenionych).
 TODO Jakość kodu:
         - Użyj np. SonarLint
