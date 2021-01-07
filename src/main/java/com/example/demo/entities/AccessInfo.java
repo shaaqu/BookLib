@@ -10,7 +10,7 @@ import java.util.List;
 public class AccessInfo {
 
     @Id
-    @Column(name = "bookId")
+    @Column(name = "id")
     private String bookId;
 
     @Column(name = "country")
@@ -28,11 +28,9 @@ public class AccessInfo {
     @Column(name = "textToSpeechPermission")
     private String textToSpeechPermission;
 
-    @Column(name = "epub")
     @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL)
     private EPub ePub;
 
-    @Column(name = "pdf")
     @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL)
     private PDF pdf;
 
@@ -66,6 +64,10 @@ public class AccessInfo {
         this.webReaderLink = webReaderLink;
         this.accessViewStatus = accessViewStatus;
         this.quoteSharingAllowed = quoteSharingAllowed;
+        this.book = book;
+    }
+
+    public void setBook(Book book) {
         this.book = book;
     }
 

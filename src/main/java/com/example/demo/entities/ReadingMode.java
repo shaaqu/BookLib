@@ -10,8 +10,9 @@ import java.util.List;
 public class ReadingMode {
 
     @Id
-    @Column(name = "bookId")
-    private String bookId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "text")
     private boolean text;
@@ -27,15 +28,15 @@ public class ReadingMode {
     }
 
     @Builder
-    public ReadingMode(String bookId, boolean text, boolean image, List<VolumeInfo> volumeInfoList) {
-        this.bookId = bookId;
+    public ReadingMode(long id, boolean text, boolean image, List<VolumeInfo> volumeInfoList) {
+        this.id = id;
         this.text = text;
         this.image = image;
         this.volumeInfoList = volumeInfoList;
     }
 
-    public String getBookId() {
-        return bookId;
+    public long getId() {
+        return id;
     }
 
     public boolean isText() {

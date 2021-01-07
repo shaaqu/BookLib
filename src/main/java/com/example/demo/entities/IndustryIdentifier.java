@@ -11,8 +11,9 @@ import java.util.List;
 public class IndustryIdentifier {
 
     @Id
-    @Column(name = "bookId")
-    private String bookId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "type")
     private String type;
@@ -32,15 +33,15 @@ public class IndustryIdentifier {
     }
 
     @Builder
-    public IndustryIdentifier(String bookId, String type, String identifier, List<VolumeInfo> books) {
-        this.bookId = bookId;
+    public IndustryIdentifier(long id, String type, String identifier, List<VolumeInfo> books) {
+        this.id = id;
         this.type = type;
         this.identifier = identifier;
         this.books = books;
     }
 
-    public String getBookId() {
-        return bookId;
+    public long getId() {
+        return id;
     }
 
     public String getType() {

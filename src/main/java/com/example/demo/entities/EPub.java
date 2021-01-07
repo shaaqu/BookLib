@@ -9,8 +9,9 @@ import javax.persistence.*;
 public class EPub {
 
     @Id
-    @Column(name = "bookId")
-    private String bookId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "isAvailable")
     private boolean isAvailable;
@@ -26,15 +27,15 @@ public class EPub {
     }
 
     @Builder
-    public EPub(String bookId, boolean isAvailable, String acsTokenLink, AccessInfo accessInfo) {
-        this.bookId = bookId;
+    public EPub(long id, boolean isAvailable, String acsTokenLink, AccessInfo accessInfo) {
+        this.id = id;
         this.isAvailable = isAvailable;
         this.acsTokenLink = acsTokenLink;
         this.accessInfo = accessInfo;
     }
 
-    public String getBookId() {
-        return bookId;
+    public long getId() {
+        return id;
     }
 
     public boolean isAvailable() {

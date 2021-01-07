@@ -188,7 +188,6 @@ public class BookItemDeserializer{
     }
     public EPub readEPub(JsonNode jsonNode){
         return EPub.builder()
-                .bookId(bookId)
                 .isAvailable(getValueBoolean(jsonNode, "isAvailable"))
                 .acsTokenLink(getValueStr(jsonNode, "acsTokenLink"))
                 .build();
@@ -206,7 +205,6 @@ public class BookItemDeserializer{
         if (jsonNode != null){
             jsonNode.forEach(
                     (v) -> industryIdentifiers.add(IndustryIdentifier.builder()
-                            .bookId(bookId)
                             .type(v.get("type").asText(null))
                             .identifier(v.get("identifier").asText(null))
                             .build())
@@ -217,14 +215,12 @@ public class BookItemDeserializer{
     }
     public com.example.demo.entities.PDF readPDF(JsonNode jsonNode){
         return com.example.demo.entities.PDF.builder()
-                .bookId(bookId)
                 .isAvailable(getValueBoolean(jsonNode, "isAvailable"))
                 .acsTokenLink(getValueStr(jsonNode, "acsTokenLink"))
                 .build();
     }
     public ReadingMode readReadingMode(JsonNode jsonNode){
         return ReadingMode.builder()
-                .bookId(bookId)
                 .image(getValueBoolean(jsonNode, "image"))
                 .text(getValueBoolean(jsonNode, "text"))
                 .build();

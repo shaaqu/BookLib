@@ -24,8 +24,11 @@ public class BookJsonModule {
     }
 
     public void createDataBase() {
-        ArrayList<Book> books = new ArrayList<>();
-
-
+        BookItemDeserializer bookItemDeserializer = new BookItemDeserializer("books.json");
+        List<Book> books = bookItemDeserializer.deserializeDB();
+        books.forEach(v -> {
+            v.getAccessInfo().setBook(v);
+            bookRepository.save(v);
+        });
     }
 }
