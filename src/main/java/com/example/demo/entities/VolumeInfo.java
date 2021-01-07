@@ -25,7 +25,7 @@ public class VolumeInfo {
     private String publisher;
 
     @Column(name = "publishedDate")
-    private Date publishedDate;
+    private long publishedDate;
 
     @Column(name = "description")
     private String description;
@@ -86,7 +86,7 @@ public class VolumeInfo {
 
     @Builder
     public VolumeInfo(String bookId, String title, List<Author> authors, String publisher,
-                      Date publishedDate, String description, List<IndustryIdentifier> industryIdentifiers,
+                      long publishedDate, String description, List<IndustryIdentifier> industryIdentifiers,
                       ReadingMode readingMode, int pageCount, String printType, List<String> categories,double averageRating,
                       int ratingCount, String maturityRating, String allowAnonLogging, String contentVersion,
                       ImageLinks imageLinks, String language, String previewLink, String infoLink,
@@ -135,7 +135,7 @@ public class VolumeInfo {
         return publisher;
     }
 
-    public Date getPublishedDate() {
+    public long getPublishedDate() {
         return publishedDate;
     }
 
