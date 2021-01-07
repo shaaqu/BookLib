@@ -39,20 +39,8 @@ public class AuthorsRanksServiceImpl implements AuthorsRankingService{
             });
         });
 
-        return  sortMap(ranking);
+        return  ranking;
     }
 
-    public Map<String, Double> sortMap(HashMap<String, Double> map) {
-        Map<String, Double> sorted = new HashMap<>();
-        sorted = map.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
-
-        System.out.println(sorted);
-
-        return sorted;
-    }
 
 }
