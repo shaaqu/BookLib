@@ -1,14 +1,10 @@
-TODO:
-1. Stwórz strukturę projektu. -DONE
-2. TODO Stwórz repo i dodaj 'cognifiderecruitment'
-3. TODO ENDPOINTS:
-        - dla ISBN - Międzynarodowy znormalizowany numer książki. RETURN: książka/404
+TODO ENDPOINTS:
         - dla kategorii książek. RETURN: lista książek/pusta lista
         - dla rankingu autorów. RETURN: lista autorów wg oceny książki (nie uwzględniamy nieocenionych).
-4. TODO Jakość kodu:
+TODO Jakość kodu:
         - Użyj np. SonarLint
         - Użyj co najmniej jednego wzorca projektowego
-5. TODO README powinno zawierać:
+TODO README powinno zawierać:
         - Krótki opis aplikacji.
         - Opis frameworka
         - Opis fraeworka do testów
