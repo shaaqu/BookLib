@@ -62,21 +62,21 @@ public class BookJsonModule {
     }
 
     private void saveSearchInfo(Book v) {
-        searchInfoRepository.save(v.getSearchInfo());
+        //searchInfoRepository.save(v.getSearchInfo());
     }
 
     private void saveAccessInfo(Book v) {
-        accessInfoRepository.save(v.getAccessInfo());
+        //accessInfoRepository.save(v.getAccessInfo());
         pdfRepository.save(v.getAccessInfo().getPdf());
         ePubRepository.save(v.getAccessInfo().getePub());
     }
 
     private void saveSaleInfo(Book v) {
-        saleInfoRepository.save(v.getSaleInfo());
+        //saleInfoRepository.save(v.getSaleInfo());
     }
 
     private void saveVolumeInfo(Book v) {
-        volumeInfoRepository.save(v.getVolumeInfo());
+        //volumeInfoRepository.save(v.getVolumeInfo());
         v.getVolumeInfo().getAuthors().forEach(a -> {
             authorRepository.save(a);
         });
