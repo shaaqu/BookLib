@@ -16,6 +16,5 @@ public interface VolumeInfoRepository extends CrudRepository<VolumeInfo, String>
 
     List<VolumeInfo> findAll();
 
-    @Query("select * from VolumeInfo where averageRating is not null ")
-    List<VolumeInfo> findWithRating();
+    List<VolumeInfo> findByAverageRatingGreaterThan(Double minRating);
 }

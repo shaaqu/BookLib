@@ -30,7 +30,7 @@ public class AuthorsRanksServiceImpl implements AuthorsRankingService{
             ranking.put(author.getName(), 0.0);
         });
 
-        volumeInfoRepository.findWithRating().forEach( b -> {
+        volumeInfoRepository.findByAverageRatingGreaterThan(0.0).forEach( b -> {
             b.getAuthors().forEach(author -> {
                 double rank = (ranking.get(author) + b.getAverageRating());
                 if (ranking.get(author) != 0.0) {
