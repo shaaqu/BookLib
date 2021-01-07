@@ -7,7 +7,9 @@ import com.example.demo.repositories.BookRepository;
 import com.example.demo.repositories.IndustryIdentifierRepository;
 import com.example.demo.repositories.VolumeInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ISBNServiceImpl implements ISBNService {
 
     BookRepository bookRepository;
