@@ -6,6 +6,7 @@ import com.example.demo.repositories.VolumeInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,11 @@ public class AuthorsRanksServiceImpl implements AuthorsRankingService{
             });
         });
 
-        return  ranking;
+        return  sortMap(ranking);
+    }
+
+    public Map<String, Double> sortMap(Map<String, Double> map) {
+        return null;
     }
 
 }
