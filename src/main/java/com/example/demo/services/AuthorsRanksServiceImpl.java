@@ -6,10 +6,8 @@ import com.example.demo.repositories.VolumeInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorsRanksServiceImpl implements AuthorsRankingService{
@@ -44,8 +42,17 @@ public class AuthorsRanksServiceImpl implements AuthorsRankingService{
         return  sortMap(ranking);
     }
 
-    public Map<String, Double> sortMap(Map<String, Double> map) {
-        return null;
+    public Map<String, Double> sortMap(HashMap<String, Double> map) {
+        Map<String, Double> sorted = new HashMap<>();
+        sorted = map.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
+
+        System.out.println(sorted);
+
+        return sorted;
     }
 
 }
