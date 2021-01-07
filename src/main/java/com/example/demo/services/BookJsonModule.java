@@ -2,7 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.BookItemDeserializer;
 import com.example.demo.entities.Book;
-import com.example.demo.repositories.BookRepository;
+import com.example.demo.repositories.*;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -17,10 +17,28 @@ import java.util.Map;
 public class BookJsonModule {
 
     BookRepository bookRepository;
+    AccessInfoRepository accessInfoRepository;
+    EPubRepository ePubRepository;
+    ImageLinksRepository imageLinksRepository;
+    IndustryIdentifierRepository industryIdentifierRepository;
+    PDFRepository pdfRepository;
+    ReadingModeRepository readingModeRepository;
+    SaleInfoRepository saleInfoRepository;
+    SearchInfoRepository searchInfoRepository;
+    VolumeInfoRepository volumeInfoRepository;
 
     @Autowired
-    public BookJsonModule(BookRepository bookRepository) {
+    public BookJsonModule(BookRepository bookRepository, AccessInfoRepository accessInfoRepository, EPubRepository ePubRepository, ImageLinksRepository imageLinksRepository, IndustryIdentifierRepository industryIdentifierRepository, PDFRepository pdfRepository, ReadingModeRepository readingModeRepository, SaleInfoRepository saleInfoRepository, SearchInfoRepository searchInfoRepository, VolumeInfoRepository volumeInfoRepository) {
         this.bookRepository = bookRepository;
+        this.accessInfoRepository = accessInfoRepository;
+        this.ePubRepository = ePubRepository;
+        this.imageLinksRepository = imageLinksRepository;
+        this.industryIdentifierRepository = industryIdentifierRepository;
+        this.pdfRepository = pdfRepository;
+        this.readingModeRepository = readingModeRepository;
+        this.saleInfoRepository = saleInfoRepository;
+        this.searchInfoRepository = searchInfoRepository;
+        this.volumeInfoRepository = volumeInfoRepository;
     }
 
     public void createDataBase() {
@@ -32,6 +50,7 @@ public class BookJsonModule {
             v.getVolumeInfo().setBook(v);
             v.getSearchInfo().setBook(v);
             bookRepository.save(v);
+
         });
     }
 }
