@@ -1,8 +1,3 @@
-TODO ENDPOINTS:
-        - dla kategorii książek. RETURN: lista książek/pusta lista
-TODO Jakość kodu:
-        - Użyj np. SonarLint
-        - Użyj co najmniej jednego wzorca projektowego
 TODO README powinno zawierać:
         - Krótki opis aplikacji.
         - Opis frameworka
