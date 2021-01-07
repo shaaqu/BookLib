@@ -29,6 +29,10 @@ public class SearchInfo {
         this.book = book;
     }
 
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
     public String getBookId() {
         return bookId;
     }

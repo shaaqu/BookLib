@@ -33,6 +33,10 @@ public class ImageLinks {
         this.volumeInfo = volumeInfo;
     }
 
+    public void setVolumeInfo(VolumeInfo volumeInfo) {
+        this.volumeInfo = volumeInfo;
+    }
+
     public Long getId() {
         return id;
     }

@@ -34,6 +34,10 @@ public class PDF {
         this.accessInfo = accessInfo;
     }
 
+    public void setAccessInfo(AccessInfo accessInfo) {
+        this.accessInfo = accessInfo;
+    }
+
     public long getId() {
         return id;
     }

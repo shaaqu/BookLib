@@ -115,6 +115,10 @@ public class VolumeInfo {
         this.book = book;
     }
 
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
     public void addCategories(List<String> categories) {
         this.categories.addAll(categories);
     }
