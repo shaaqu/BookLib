@@ -28,7 +28,9 @@ public class BookJsonModule {
         List<Book> books = bookItemDeserializer.deserializeDB();
         books.forEach(v -> {
             v.getAccessInfo().setBook(v);
-            v.getSaleInfo();
+            v.getSaleInfo().setBook(v);
+            v.getVolumeInfo().setBook(v);
+            v.getSearchInfo().setBook(v);
             bookRepository.save(v);
         });
     }

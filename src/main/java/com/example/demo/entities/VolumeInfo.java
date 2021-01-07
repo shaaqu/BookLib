@@ -1,6 +1,9 @@
 package com.example.demo.entities;
 
 import lombok.Builder;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,7 +21,7 @@ public class VolumeInfo {
     @Column(name = "title")
     private String title;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books") @NotFound(action = NotFoundAction.IGNORE)
     private List<Author> authors = new ArrayList<Author>();
 
     @Column(name = "publisher")
@@ -30,11 +33,11 @@ public class VolumeInfo {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books") @NotFound(action = NotFoundAction.IGNORE)
     private List<IndustryIdentifier> industryIdentifiers = new ArrayList<IndustryIdentifier>();
 
-    @ManyToOne
-    @JoinColumn(name = "readingMode")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "readingMode", referencedColumnName = "id")
     private ReadingMode readingMode;
 
     @Column(name = "pageCount")

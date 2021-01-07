@@ -20,19 +20,18 @@ public class ReadingMode {
     @Column(name = "image")
     private boolean image;
 
-    @Column(name = "books")
-    @OneToMany(mappedBy = "readingMode")
-    private List<VolumeInfo> volumeInfoList;
+    @OneToOne(mappedBy = "readingMode")
+    private VolumeInfo volumeInfo;
 
     public ReadingMode() {
     }
 
     @Builder
-    public ReadingMode(long id, boolean text, boolean image, List<VolumeInfo> volumeInfoList) {
+    public ReadingMode(long id, boolean text, boolean image, VolumeInfo volumeInfo) {
         this.id = id;
         this.text = text;
         this.image = image;
-        this.volumeInfoList = volumeInfoList;
+        this.volumeInfo = volumeInfo;
     }
 
     public long getId() {
@@ -47,7 +46,7 @@ public class ReadingMode {
         return image;
     }
 
-    public List<VolumeInfo> getVolumeInfoList() {
-        return volumeInfoList;
+    public VolumeInfo getVolumeInfo() {
+        return volumeInfo;
     }
 }

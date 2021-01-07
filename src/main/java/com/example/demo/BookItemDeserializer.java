@@ -242,7 +242,11 @@ public class BookItemDeserializer{
             return null;
         }
         if (jsonNode.has(key)) {
-            return jsonNode.get(key).asText();
+            String s = jsonNode.get(key).asText();
+            if (s.length() > 200) {
+                s = s.substring(0, 200);
+            }
+            return s;
         } else {
             return null;
         }
