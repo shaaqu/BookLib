@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface AuthorsRankingService {
 
-    Map<Author, Double> getRanking();
+    Map<String, Double> getRanking();
 
 }
