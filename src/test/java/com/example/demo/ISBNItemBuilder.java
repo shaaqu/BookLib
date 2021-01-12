@@ -15,6 +15,6 @@ public class ISBNItemBuilder implements ItemRequestBuilder{
 
     @Override
     public ResultActions getItem() throws Exception {
-        return mockMvc.perform(get("/isbn/1111"));
+        return mockMvc.perform(get("/isbn/{isbn}", 1111));
     }
 }

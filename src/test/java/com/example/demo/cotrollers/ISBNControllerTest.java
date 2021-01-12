@@ -18,6 +18,7 @@ import static com.example.demo.ItemRequestBuilderFactory.Items.ISBN_ITEM;
 import static com.example.demo.WebTestConfig.exceptionResolver;
 import static com.example.demo.WebTestConfig.fixedLocaleResolver;
 import static org.mockito.Mockito.mock;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,8 +45,7 @@ public class ISBNControllerTest {
     @Test
     public void getItemTest() throws Exception {
         itemRequestBuilder.getItem().andExpect(status().isOk())
-                .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON)
-                );
+                .andDo(print());
+
     }
 }
