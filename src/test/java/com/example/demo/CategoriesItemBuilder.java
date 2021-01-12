@@ -15,6 +15,6 @@ public class CategoriesItemBuilder implements ItemRequestBuilder{
 
     @Override
     public ResultActions getItem() throws Exception {
-        return mockMvc.perform(get("/categories/category"));
+        return mockMvc.perform(get("/categories/{category}", "religion"));
     }
 }

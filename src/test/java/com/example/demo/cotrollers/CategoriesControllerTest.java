@@ -3,6 +3,7 @@ package com.example.demo.cotrollers;
 import com.example.demo.ItemRequestBuilder;
 import com.example.demo.ItemRequestBuilderFactory;
 import com.example.demo.controllers.AuthorsRankingController;
+import com.example.demo.controllers.CategoriesController;
 import com.example.demo.services.AuthorsRankingService;
 import com.example.demo.services.CategoriesService;
 import org.json.JSONException;
@@ -27,10 +28,10 @@ public class CategoriesControllerTest {
 
     @BeforeEach
     void configureSystemUnderTest() throws JSONException {
-        service = mock(AuthorsRankingService.class);
-        AuthorsRankingController accountController = new AuthorsRankingController(service);
+        service = mock(CategoriesService.class);
+        CategoriesController categoriesController = new CategoriesController(service);
         MockMvc mockMvc = MockMvcBuilders
-                .standaloneSetup(accountController)
+                .standaloneSetup(categoriesController)
                 .setHandlerExceptionResolvers(exceptionResolver())
                 .setLocaleResolver(fixedLocaleResolver())
                 .build();
