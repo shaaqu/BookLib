@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static com.example.demo.ItemRequestBuilderFactory.Items.AUTHORS_RANKING_ITEM;
+import static com.example.demo.ItemRequestBuilderFactory.Items.CATEGORIES_ITEM;
 import static com.example.demo.WebTestConfig.exceptionResolver;
 import static com.example.demo.WebTestConfig.fixedLocaleResolver;
 import static org.mockito.Mockito.mock;
@@ -36,7 +37,7 @@ public class CategoriesControllerTest {
                 .setLocaleResolver(fixedLocaleResolver())
                 .build();
         factory = new ItemRequestBuilderFactory(mockMvc);
-        itemRequestBuilder = factory.createRequestBuilder(AUTHORS_RANKING_ITEM);
+        itemRequestBuilder = factory.createRequestBuilder(CATEGORIES_ITEM);
 
     }
 
