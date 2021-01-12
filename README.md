@@ -14,12 +14,13 @@ pozwala nam wstrzykiwać zależności. Spring ułatwia również swoim użytkown
 udostępniając nam metodyt CRUD (create, read, update, delete). Dzięki CRUDowi możemy za pomocą kilku
 interfejsów zarządzanie bazą danych.
 
-### Opis frameworka do testów (JUnit 5)
+### Opis frameworków do testów 
 
-JUnit 5 jest javowym frameworkiem do towrzenia testów jednostkowych. Za pomocą klas i metod testowych,
- które są odzielone głównego kodu aplikacji, możemy przetestować działanie naszych klas i metod wykorzystywanych w kodzie zródłowym.
+- JUnit 5 jest javowym frameworkiem do towrzenia testów jednostkowych. Za pomocą klas i metod testowych,
+które są odzielone głównego kodu aplikacji, możemy przetestować działanie naszych klas i metod wykorzystywanych w kodzie zródłowym.
 Dużym plusem stosowania JUnit są bardzo czytelne raporty tworzone podczas testów.
 
+- Mockito - bilbiotek pozwalająca utworzyć zamockowany obiekt, czyli taki któremu narzucamy z góry jego zachoanie bez tworzenia jego prawdziwej instacji.
 
 ### Wzorce projektowe
 
