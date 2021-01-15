@@ -21,7 +21,7 @@ public class VolumeInfo {
     @Column(name = "title")
     private String title;
 
-    @ManyToMany(mappedBy = "books") @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToMany(mappedBy = "books")
     private List<Author> authors = new ArrayList<Author>();
 
     @Column(name = "publisher")
@@ -36,7 +36,7 @@ public class VolumeInfo {
     @ManyToMany(mappedBy = "books") @NotFound(action = NotFoundAction.IGNORE)
     private List<IndustryIdentifier> industryIdentifiers = new ArrayList<IndustryIdentifier>();
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "readingMode", referencedColumnName = "id")
     private ReadingMode readingMode;
 
@@ -64,7 +64,7 @@ public class VolumeInfo {
     @Column(name = "contentVersion")
     private String contentVersion;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "imageLinks", referencedColumnName = "id")
     private ImageLinks imageLinks;
 
@@ -212,5 +212,21 @@ public class VolumeInfo {
 
     public Book getBook() {
         return book;
+    }
+
+    public void addAuthor(Author author) {
+        this.authors.add(author);
+    }
+
+    public void addIndustryIdentifiers(IndustryIdentifier industryIdentifier) {
+        this.industryIdentifiers.add(industryIdentifier);
+    }
+
+    public void setReadingMode(ReadingMode readingMode) {
+        this.readingMode = readingMode;
+    }
+
+    public void setImageLinks(ImageLinks imageLinks) {
+        this.imageLinks = imageLinks;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.BookItemDeserializer;
+import com.example.demo.entities.Author;
 import com.example.demo.entities.Book;
 import com.example.demo.repositories.*;
 import com.fasterxml.jackson.core.Version;
@@ -51,13 +52,13 @@ public class BookJsonModule {
             v.getSaleInfo().setBook(v);
             v.getVolumeInfo().setBook(v);
             v.getSearchInfo().setBook(v);
-            bookRepository.save(v);
 
             saveVolumeInfo(v);
             saveSaleInfo(v);
             saveAccessInfo(v);
             saveSearchInfo(v);
 
+            bookRepository.save(v);
         });
     }
 
@@ -76,7 +77,6 @@ public class BookJsonModule {
     }
 
     private void saveVolumeInfo(Book v) {
-        //volumeInfoRepository.save(v.getVolumeInfo());
         v.getVolumeInfo().getAuthors().forEach(a -> {
             authorRepository.save(a);
         });
@@ -85,5 +85,6 @@ public class BookJsonModule {
         });
         readingModeRepository.save(v.getVolumeInfo().getReadingMode());
         imageLinksRepository.save(v.getVolumeInfo().getImageLinks());
+//        volumeInfoRepository.save(v.getVolumeInfo());
     }
 }

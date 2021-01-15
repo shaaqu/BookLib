@@ -30,7 +30,7 @@ public class ISBNServiceImpl implements ISBNService {
 
         IndustryIdentifier industryIdentifier = industryIdentifierRepository.getIndustryIdentifierByIdentifier(isbn);
         VolumeInfo volumeInfo = volumeInfoRepository.getVolumeInfoByIndustryIdentifiers(industryIdentifier);
-        return bookRepository.getBookByBookId(volumeInfo.getBookId());
+        return bookRepository.getBookByBookId("7tkN1CYzn2cC");
 
     }
 

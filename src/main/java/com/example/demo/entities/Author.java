@@ -17,7 +17,7 @@ public class Author {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "authors_books",
-            joinColumns = {@JoinColumn(name = "author")},
+            joinColumns = {@JoinColumn(name = "name")},
             inverseJoinColumns = {@JoinColumn(name = "bookId")}
     )
     List<VolumeInfo> books = new ArrayList<VolumeInfo>();
@@ -37,5 +37,9 @@ public class Author {
 
     public List<VolumeInfo> getBooks() {
         return books;
+    }
+
+    public void addBook(VolumeInfo volumeInfo) {
+        books.add(volumeInfo);
     }
 }
