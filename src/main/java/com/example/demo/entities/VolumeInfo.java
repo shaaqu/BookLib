@@ -33,7 +33,7 @@ public class VolumeInfo {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "books") @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY) @NotFound(action = NotFoundAction.IGNORE)
     private List<IndustryIdentifier> industryIdentifiers = new ArrayList<IndustryIdentifier>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
