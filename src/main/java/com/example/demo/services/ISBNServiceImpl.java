@@ -29,8 +29,11 @@ public class ISBNServiceImpl implements ISBNService {
     public Book getBookByISBN(String isbn) {
 
         VolumeInfo volumeInfo = volumeInfoRepository.getVolumeInfoByIndustryIdentifiers(isbn);
-        return bookRepository.getBookByBookId(volumeInfo.getBookId());
-
+        if (volumeInfo != null) {
+            return bookRepository.getBookByBookId(volumeInfo.getBookId());
+        } else {
+            return null;
+        }
     }
 
 }
