@@ -14,7 +14,11 @@ import java.util.List;
 public interface VolumeInfoRepository extends CrudRepository<VolumeInfo, String>, PagingAndSortingRepository<VolumeInfo, String> {
 
     VolumeInfo save(VolumeInfo volumeInfo);
-    VolumeInfo getVolumeInfoByIndustryIdentifiers(IndustryIdentifier industryIdentifier);
+
+    @Query("SELECT v FROM VolumeInfo v " +
+            "LEFT JOIN v.industryIdentifiers as i " +
+            "WHERE i.identifier = ?1")
+    VolumeInfo getVolumeInfoByIndustryIdentifiers(String identifier);
 
     List<VolumeInfo> findAll();
 

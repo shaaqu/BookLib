@@ -28,9 +28,8 @@ public class ISBNServiceImpl implements ISBNService {
     @Override
     public Book getBookByISBN(String isbn) {
 
-        IndustryIdentifier industryIdentifier = industryIdentifierRepository.getIndustryIdentifierByIdentifier(isbn);
-        VolumeInfo volumeInfo = volumeInfoRepository.getVolumeInfoByIndustryIdentifiers(industryIdentifier);
-        return bookRepository.getBookByBookId("7tkN1CYzn2cC");
+        VolumeInfo volumeInfo = volumeInfoRepository.getVolumeInfoByIndustryIdentifiers(isbn);
+        return bookRepository.getBookByBookId(volumeInfo.getBookId());
 
     }
 
