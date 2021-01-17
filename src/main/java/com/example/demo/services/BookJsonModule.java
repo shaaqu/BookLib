@@ -55,12 +55,15 @@ public class BookJsonModule {
             v.getVolumeInfo().setBook(v);
             v.getSearchInfo().setBook(v);
 
+            v.getVolumeInfo().getReadingMode().setVolumeInfo(v.getVolumeInfo());
+
+            bookRepository.save(v);
+
             saveVolumeInfo(v);
             saveSaleInfo(v);
             saveAccessInfo(v);
             saveSearchInfo(v);
 
-            bookRepository.save(v);
         });
     }
 
@@ -79,22 +82,17 @@ public class BookJsonModule {
     }
 
     private void saveVolumeInfo(Book v) {
-        volumeInfoRepository.save(v.getVolumeInfo());
 
-        ReadingMode readingMode = v.getVolumeInfo().getReadingMode();
-        readingMode.setVolumeInfo(v.getVolumeInfo());
-        readingModeRepository.save(readingMode);
 
 
         v.getVolumeInfo().getAuthors().forEach(a -> {
-            authorRepository.save(a);
+            a.addBook(v.getVolumeInfo());
         });
 
         v.getVolumeInfo().getIndustryIdentifiers().forEach(i -> {
             i.setVolumeInfo(v.getVolumeInfo());
-            industryIdentifierRepository.save(i);
         });
 
-        imageLinksRepository.save(v.getVolumeInfo().getImageLinks());
+//        imageLinksRepository.save(v.getVolumeInfo().getImageLinks());
     }
 }

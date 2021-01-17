@@ -10,9 +10,8 @@ import java.util.List;
 public class ReadingMode {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private String id;
 
     @Column(name = "text")
     private boolean text;
@@ -20,21 +19,23 @@ public class ReadingMode {
     @Column(name = "image")
     private boolean image;
 
-    @OneToOne(mappedBy = "readingMode")
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "bookId")
     private VolumeInfo volumeInfo;
 
     public ReadingMode() {
     }
 
     @Builder
-    public ReadingMode(long id, boolean text, boolean image, VolumeInfo volumeInfo) {
+    public ReadingMode(String id, boolean text, boolean image, VolumeInfo volumeInfo) {
         this.id = id;
         this.text = text;
         this.image = image;
         this.volumeInfo = volumeInfo;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
