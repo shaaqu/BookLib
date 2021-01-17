@@ -41,7 +41,7 @@ public class VolumeInfo {
     @OneToMany(mappedBy = "volumeInfo") @NotFound(action = NotFoundAction.IGNORE)
     private List<IndustryIdentifier> industryIdentifiers = new ArrayList<IndustryIdentifier>();
 
-    @OneToOne(mappedBy = "volumeInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "volumeInfo", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private ReadingMode readingMode;
 
@@ -69,7 +69,7 @@ public class VolumeInfo {
     @Column(name = "contentVersion")
     private String contentVersion;
 
-    @OneToOne(mappedBy = "volumeInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "volumeInfo", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private ImageLinks imageLinks;
 

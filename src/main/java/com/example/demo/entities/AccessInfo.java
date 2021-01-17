@@ -28,11 +28,11 @@ public class AccessInfo {
     @Column(name = "textToSpeechPermission")
     private String textToSpeechPermission;
 
-    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private EPub ePub;
 
-    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private PDF pdf;
 

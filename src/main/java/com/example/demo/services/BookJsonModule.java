@@ -1,10 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.BookItemDeserializer;
-import com.example.demo.entities.Author;
-import com.example.demo.entities.Book;
-import com.example.demo.entities.IndustryIdentifier;
-import com.example.demo.entities.ReadingMode;
+import com.example.demo.entities.*;
 import com.example.demo.repositories.*;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -55,31 +52,23 @@ public class BookJsonModule {
             v.getVolumeInfo().setBook(v);
             v.getSearchInfo().setBook(v);
 
-            v.getVolumeInfo().getReadingMode().setVolumeInfo(v.getVolumeInfo());
+            VolumeInfo volumeInfo = v.getVolumeInfo();
+            AccessInfo accessInfo = v.getAccessInfo();
+
+
+            v.getVolumeInfo().getReadingMode().setVolumeInfo(volumeInfo);
+            v.getVolumeInfo().getImageLinks().setVolumeInfo(volumeInfo);
+            v.getAccessInfo().getPdf().setAccessInfo(accessInfo);
+            v.getAccessInfo().getePub().setAccessInfo(accessInfo);
 
             bookRepository.save(v);
 
-            saveVolumeInfo(v);
-            saveSaleInfo(v);
-            saveAccessInfo(v);
-            saveSearchInfo(v);
+
 
         });
     }
 
-    private void saveSearchInfo(Book v) {
-        //searchInfoRepository.save(v.getSearchInfo());
-    }
 
-    private void saveAccessInfo(Book v) {
-        //accessInfoRepository.save(v.getAccessInfo());
-        pdfRepository.save(v.getAccessInfo().getPdf());
-        ePubRepository.save(v.getAccessInfo().getePub());
-    }
-
-    private void saveSaleInfo(Book v) {
-        //saleInfoRepository.save(v.getSaleInfo());
-    }
 
     private void saveVolumeInfo(Book v) {
 

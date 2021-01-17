@@ -85,5 +85,11 @@ public class Book {
         return searchInfo;
     }
 
+    public void setVolumeInfo(VolumeInfo volumeInfo) {
+        this.volumeInfo = volumeInfo;
+    }
 
+    public void setAccessInfo(AccessInfo accessInfo) {
+        this.accessInfo = accessInfo;
+    }
 }
