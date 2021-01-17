@@ -8,9 +8,9 @@ import javax.persistence.*;
 @Table(name = "imageLinks")
 public class ImageLinks {
 
-    @Id
+    @Id @GeneratedValue
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "smallThumbnail")
     private String smallThumbnail;
@@ -18,16 +18,17 @@ public class ImageLinks {
     @Column(name = "thumbnail")
     private String thumbnail;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "bookId")
+//    @OneToOne
+//    @MapsId
+//    @JoinColumn(name = "bookId")
+    @OneToOne(mappedBy = "imageLinks")
     private VolumeInfo volumeInfo;
 
     public ImageLinks() {
     }
 
     @Builder
-    public ImageLinks(String id, String smallThumbnail, String thumbnail, VolumeInfo volumeInfo) {
+    public ImageLinks(Long id, String smallThumbnail, String thumbnail, VolumeInfo volumeInfo) {
         this.id = id;
         this.smallThumbnail = smallThumbnail;
         this.thumbnail = thumbnail;
@@ -38,7 +39,7 @@ public class ImageLinks {
         this.volumeInfo = volumeInfo;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

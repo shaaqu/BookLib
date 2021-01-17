@@ -9,9 +9,9 @@ import java.util.List;
 @Table(name = "readingMode")
 public class ReadingMode {
 
-    @Id
+    @Id @GeneratedValue
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "text")
     private boolean text;
@@ -19,23 +19,24 @@ public class ReadingMode {
     @Column(name = "image")
     private boolean image;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+//    @OneToOne
+//    @MapsId
+//    @JoinColumn(name = "id")
+    @OneToOne(mappedBy = "imageLinks")
     private VolumeInfo volumeInfo;
 
     public ReadingMode() {
     }
 
     @Builder
-    public ReadingMode(String id, boolean text, boolean image, VolumeInfo volumeInfo) {
+    public ReadingMode(Long id, boolean text, boolean image, VolumeInfo volumeInfo) {
         this.id = id;
         this.text = text;
         this.image = image;
         this.volumeInfo = volumeInfo;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
