@@ -46,12 +46,15 @@ public class AuthorsRanksServiceImpl implements AuthorsRankingService{
         return rankingReturn;
     }
 
-    public HashMap<String, Double> sortRanking(HashMap<String, Rating> ranking) {
-        HashMap<String, Double> rank = new HashMap<>();
+    public LinkedHashMap<String, Double> sortRanking(HashMap<String, Rating> ranking) {
+        LinkedHashMap<String, Double> rank = new LinkedHashMap<>();
 
         List<Rating> rankList = new ArrayList<>(ranking.values());
 
-        Collections.sort(rankList, new RatingComparator());
+        Collections.sort(rankList,
+                Comparator.comparing(Rating::getRating));
+
+        Collections.reverse(rankList);
 
         rankList.forEach(rating -> {
             rank.put(rating.getAuthor().getName(), rating.getRating());
