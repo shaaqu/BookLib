@@ -30,12 +30,16 @@ public class AccessInfo {
     @Column(name = "textToSpeechPermission")
     private String textToSpeechPermission;
 
-    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn @NotFound(action = NotFoundAction.IGNORE)
+//    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @PrimaryKeyJoinColumn @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ePub", referencedColumnName = "id")
     private EPub ePub;
 
-    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn @NotFound(action = NotFoundAction.IGNORE)
+//    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @PrimaryKeyJoinColumn @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pdf", referencedColumnName = "id")
     private PDF pdf;
 
     @Column(name = "webReaderLink")

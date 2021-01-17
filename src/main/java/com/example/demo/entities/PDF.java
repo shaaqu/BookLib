@@ -5,12 +5,12 @@ import lombok.Builder;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PDF")
+@Table(name = "pdf")
 public class PDF {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "isAvailable")
     private boolean isAvailable;
@@ -18,16 +18,17 @@ public class PDF {
     @Column(name = "acsTokenLink")
     private String acsTokenLink;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+//    @OneToOne
+//    @MapsId
+//    @JoinColumn(name = "bookId")
+    @OneToOne(mappedBy = "pdf")
     private AccessInfo accessInfo;
 
     public PDF() {
     }
 
     @Builder
-    public PDF(String id, boolean isAvailable, String acsTokenLink, AccessInfo accessInfo) {
+    public PDF(Long id, boolean isAvailable, String acsTokenLink, AccessInfo accessInfo) {
         this.id = id;
         this.isAvailable = isAvailable;
         this.acsTokenLink = acsTokenLink;
@@ -38,7 +39,7 @@ public class PDF {
         this.accessInfo = accessInfo;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
