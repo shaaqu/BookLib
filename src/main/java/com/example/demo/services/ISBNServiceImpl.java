@@ -3,9 +3,7 @@ package com.example.demo.services;
 import com.example.demo.entities.Book;
 import com.example.demo.entities.IndustryIdentifier;
 import com.example.demo.entities.VolumeInfo;
-import com.example.demo.repositories.BookRepository;
-import com.example.demo.repositories.IndustryIdentifierRepository;
-import com.example.demo.repositories.VolumeInfoRepository;
+import com.example.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +14,15 @@ public class ISBNServiceImpl implements ISBNService {
     IndustryIdentifierRepository industryIdentifierRepository;
     VolumeInfoRepository volumeInfoRepository;
 
-
     @Autowired
-    public ISBNServiceImpl(BookRepository bookRepository, IndustryIdentifierRepository industryIdentifierRepository, VolumeInfoRepository volumeInfoRepository) {
+    public ISBNServiceImpl(BookRepository bookRepository, IndustryIdentifierRepository industryIdentifierRepository, VolumeInfoRepository volumeInfoRepository, SaleInfoRepository saleInfoRepository, SearchInfoRepository searchInfoRepository, AccessInfoRepository accessInfoRepository) {
         this.bookRepository = bookRepository;
         this.industryIdentifierRepository = industryIdentifierRepository;
         this.volumeInfoRepository = volumeInfoRepository;
     }
+
+
+
 
 
     @Override
@@ -30,7 +30,8 @@ public class ISBNServiceImpl implements ISBNService {
 
         VolumeInfo volumeInfo = volumeInfoRepository.getVolumeInfoByIndustryIdentifiers(isbn);
         if (volumeInfo != null) {
-            Book book = bookRepository.getBookByBookId(volumeInfo.getBookId());
+            String id = volumeInfo.getBookId();
+            Book book = bookRepository.getBookByBookId(id);
             book.setVolumeInfo(null);
             book.setAccessInfo(null);
             book.setSaleInfo(null);
