@@ -1,6 +1,8 @@
 package com.example.demo.entities;
 
 import lombok.Builder;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,33 +13,25 @@ import java.util.List;
 public class IndustryIdentifier {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "identifier")
+    private String identifier;
 
     @Column(name = "type")
     private String type;
 
-    @Column(name = "identifier")
-    private String identifier;
 
-    @ManyToOne
-    @JoinColumn(name = "bookId", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bookId", nullable = true)
     VolumeInfo volumeInfo;
 
     public IndustryIdentifier() {
     }
 
     @Builder
-    public IndustryIdentifier(long id, String type, String identifier, VolumeInfo volumeInfo) {
-        this.id = id;
+    public IndustryIdentifier(String type, String identifier, VolumeInfo volumeInfo) {
         this.type = type;
         this.identifier = identifier;
         this.volumeInfo = volumeInfo;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getType() {

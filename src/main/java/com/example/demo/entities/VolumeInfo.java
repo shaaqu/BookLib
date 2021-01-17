@@ -38,8 +38,7 @@ public class VolumeInfo {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bookId")
+    @OneToMany(mappedBy = "volumeInfo") @NotFound(action = NotFoundAction.IGNORE)
     private List<IndustryIdentifier> industryIdentifiers = new ArrayList<IndustryIdentifier>();
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -53,6 +53,7 @@ public class BookJsonModule {
             v.getVolumeInfo().setBook(v);
             v.getSearchInfo().setBook(v);
 
+            String id = v.getBookId();
 
             VolumeInfo volumeInfo = v.getVolumeInfo();
             AccessInfo accessInfo = v.getAccessInfo();
@@ -62,10 +63,9 @@ public class BookJsonModule {
             volumeInfo.getIndustryIdentifiers().clear();
             volumeInfo.getAuthors().clear();
 
-//            industryIdentifierList.forEach( i -> {
-//                i.setVolumeInfo(volumeInfo);
-//                volumeInfo.addIndustryIdentifiers(i);
-//            });
+            industryIdentifierList.forEach( i -> {
+                volumeInfo.addIndustryIdentifiers(i);
+            });
 
             authors.forEach(a -> {
                 volumeInfo.addAuthor(a);
@@ -92,15 +92,10 @@ public class BookJsonModule {
 
             bookRepository.save(v);
 
-//            System.out.println(authors.size());
-//            authors.forEach(author -> {
-//                authorRepository.save(author);
-//            });
-//
-//            industryIdentifierList.forEach( i -> {
-//                industryIdentifierRepository.save(i);
-//            });
-
+            industryIdentifierList.forEach( i -> {
+                i.setVolumeInfo(volumeInfoRepository.findByBookId(id));
+                industryIdentifierRepository.save(i);
+            });
 
         });
     }

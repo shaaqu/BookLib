@@ -22,5 +22,7 @@ public interface VolumeInfoRepository extends CrudRepository<VolumeInfo, String>
 
     List<VolumeInfo> findAll();
 
+    VolumeInfo findByBookId(String id);
+
     List<VolumeInfo> findByAverageRatingGreaterThan(Double minRating);
 }
