@@ -71,6 +71,14 @@ public class AccessInfo {
         this.book = book;
     }
 
+    public void setePub(EPub ePub) {
+        this.ePub = ePub;
+    }
+
+    public void setPdf(PDF pdf) {
+        this.pdf = pdf;
+    }
+
     public String getBookId() {
         return bookId;
     }

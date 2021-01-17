@@ -21,12 +21,7 @@ public class IndustryIdentifier {
     @Column(name = "identifier")
     private String identifier;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "industryIdentifier_books",
-            joinColumns = {@JoinColumn(name = "industryIdentifier")},
-            inverseJoinColumns = {@JoinColumn(name = "bookId")}
-    )
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
     List<VolumeInfo> books = new ArrayList<VolumeInfo>();
 
     public IndustryIdentifier() {
