@@ -2,7 +2,9 @@ package com.example.demo;
 
 import com.example.demo.entities.Author;
 
-public class Rating {
+import java.util.Comparator;
+
+public class Rating implements Comparator<Rating> {
     Author author;
     int ratingCount;
     double ratingSum;
@@ -20,5 +22,18 @@ public class Rating {
 
     public double getRating() {
         return ratingSum/ratingCount;
+    }
+
+    @Override
+    public int compare(Rating r1, Rating r2) {
+        if (r1.getRating() > r2.getRating()) {
+            return 1;
+        }
+        if (r1.getRating() < r2.getRating()) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
     }
 }

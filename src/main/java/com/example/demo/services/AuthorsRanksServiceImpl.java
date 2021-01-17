@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorsRanksServiceImpl implements AuthorsRankingService{
@@ -40,19 +42,15 @@ public class AuthorsRanksServiceImpl implements AuthorsRankingService{
 
         HashMap<String, Double> rankingReturn = new HashMap<>();
 
-        ranking.forEach((a, r) -> {
-            if (ranking.get(a).getRating() != 0) {
-                rankingReturn.put(a, ranking.get(a).getRating());
-            }
-        });
 
-        rankingReturn.forEach((a, r) ->{
-            if (rankingReturn.get(a) == null){
-                rankingReturn.remove(a);
-            }
-        });
 
+        rankingReturn = sortRanking(ranking);
         return rankingReturn;
+    }
+
+    public HashMap<String, Double> sortRanking(HashMap<String, Rating> ranking) {
+
+
     }
 
 }

@@ -20,11 +20,9 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView defaultHome(){
+    public String defaultHome(){
         bookJsonModule.createDataBase();
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("message", "Database has benn created.");
-        return modelAndView;
+        return "Database has been created";
     }
 
 }
