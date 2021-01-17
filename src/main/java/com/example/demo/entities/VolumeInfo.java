@@ -21,7 +21,12 @@ public class VolumeInfo {
     @Column(name = "title")
     private String title;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "authors_books",
+            joinColumns = {@JoinColumn(name = "bookId")},
+            inverseJoinColumns = {@JoinColumn(name = "name")}
+    )
     private List<Author> authors = new ArrayList<Author>();
 
     @Column(name = "publisher")

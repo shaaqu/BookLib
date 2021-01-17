@@ -14,12 +14,7 @@ public class Author {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "authors_books",
-            joinColumns = {@JoinColumn(name = "name")},
-            inverseJoinColumns = {@JoinColumn(name = "bookId")}
-    )
+    @ManyToMany(mappedBy = "books")
     List<VolumeInfo> books = new ArrayList<VolumeInfo>();
 
     public Author() {
