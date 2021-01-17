@@ -46,6 +46,7 @@ public class BookJsonModule {
     public void createDataBase() {
         BookItemDeserializer bookItemDeserializer = new BookItemDeserializer("books.json");
         List<Book> books = bookItemDeserializer.deserializeDB();
+
         books.forEach(v -> {
             v.getAccessInfo().setBook(v);
             v.getSaleInfo().setBook(v);
@@ -78,8 +79,8 @@ public class BookJsonModule {
 
             v.setAccessInfo(accessInfo);
             v.setVolumeInfo(volumeInfo);
-            accessInfoRepository.save(accessInfo);
-            volumeInfoRepository.save(volumeInfo);
+//            accessInfoRepository.save(accessInfo);
+//            volumeInfoRepository.save(volumeInfo);
 
             bookRepository.save(v);
 
