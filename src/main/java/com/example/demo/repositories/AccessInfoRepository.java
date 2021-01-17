@@ -11,4 +11,6 @@ public interface AccessInfoRepository  extends CrudRepository<Author, String>, P
 
     AccessInfo save(AccessInfo accessInfo);
 
+    AccessInfo findByBookId(String id);
+
 }

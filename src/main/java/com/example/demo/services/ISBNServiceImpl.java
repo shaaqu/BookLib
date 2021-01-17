@@ -30,7 +30,12 @@ public class ISBNServiceImpl implements ISBNService {
 
         VolumeInfo volumeInfo = volumeInfoRepository.getVolumeInfoByIndustryIdentifiers(isbn);
         if (volumeInfo != null) {
-            return bookRepository.getBookByBookId(volumeInfo.getBookId());
+            Book book = bookRepository.getBookByBookId(volumeInfo.getBookId());
+            book.setVolumeInfo(null);
+            book.setAccessInfo(null);
+            book.setSaleInfo(null);
+            book.setSearchInfo(null);
+            return book;
         } else {
             return null;
         }

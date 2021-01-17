@@ -10,4 +10,6 @@ public interface SearchInfoRepository extends CrudRepository<SearchInfo, String>
 
     SearchInfo save(SearchInfo searchInfo);
 
+    SearchInfo findByBookId(String id);
+
 }

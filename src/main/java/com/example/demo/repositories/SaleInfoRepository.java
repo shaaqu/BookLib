@@ -10,4 +10,5 @@ public interface SaleInfoRepository extends CrudRepository<SaleInfo, String>, Pa
 
     SaleInfo save(SaleInfo saleInfo);
 
+    SaleInfo findByBookId(String id);
 }

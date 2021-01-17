@@ -92,4 +92,12 @@ public class Book {
     public void setAccessInfo(AccessInfo accessInfo) {
         this.accessInfo = accessInfo;
     }
+
+    public void setSaleInfo(SaleInfo saleInfo) {
+        this.saleInfo = saleInfo;
+    }
+
+    public void setSearchInfo(SearchInfo searchInfo) {
+        this.searchInfo = searchInfo;
+    }
 }
