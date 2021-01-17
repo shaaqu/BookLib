@@ -52,28 +52,36 @@ public class BookJsonModule {
             v.getVolumeInfo().setBook(v);
             v.getSearchInfo().setBook(v);
 
+
             VolumeInfo volumeInfo = v.getVolumeInfo();
             AccessInfo accessInfo = v.getAccessInfo();
 
-            ReadingMode readingMode = v.getVolumeInfo().getReadingMode();
-            readingMode.setVolumeInfo(volumeInfo);
-            readingModeRepository.save(readingMode);
-
-            ImageLinks imageLinks = v.getVolumeInfo().getImageLinks();
-            imageLinks.setVolumeInfo(volumeInfo);
-            imageLinksRepository.save(imageLinks);
-
             PDF pdf = v.getAccessInfo().getPdf();
             pdf.setAccessInfo(accessInfo);
-            pdfRepository.save(pdf);
+            accessInfo.setPdf(pdf);
+//            pdfRepository.save(pdf);
 
             EPub ePub = v.getAccessInfo().getePub();
             ePub.setAccessInfo(accessInfo);
-            ePubRepository.save(ePub);
+            accessInfo.setePub(ePub);
+//            ePubRepository.save(ePub);
+
+            ReadingMode readingMode = v.getVolumeInfo().getReadingMode();
+            readingMode.setVolumeInfo(volumeInfo);
+            volumeInfo.setReadingMode(readingMode);
+//            readingModeRepository.save(readingMode);
+
+            ImageLinks imageLinks = v.getVolumeInfo().getImageLinks();
+            imageLinks.setVolumeInfo(volumeInfo);
+            volumeInfo.setImageLinks(imageLinks);
+//            imageLinksRepository.save(imageLinks);
+
+            v.setAccessInfo(accessInfo);
+            v.setVolumeInfo(volumeInfo);
+            accessInfoRepository.save(accessInfo);
+            volumeInfoRepository.save(volumeInfo);
 
             bookRepository.save(v);
-
-
 
         });
     }

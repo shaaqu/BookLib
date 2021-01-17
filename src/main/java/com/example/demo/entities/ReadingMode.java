@@ -21,7 +21,7 @@ public class ReadingMode {
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "bookId")
+    @JoinColumn(name = "id")
     private VolumeInfo volumeInfo;
 
     public ReadingMode() {

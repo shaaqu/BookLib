@@ -22,7 +22,7 @@ public class Book {
     @Column(name = "selfLink")
     private String selfLink;
 
-    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "book", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private VolumeInfo volumeInfo;
 
@@ -30,7 +30,7 @@ public class Book {
     @PrimaryKeyJoinColumn
     private SaleInfo saleInfo;
 
-    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "book", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private AccessInfo accessInfo;
 

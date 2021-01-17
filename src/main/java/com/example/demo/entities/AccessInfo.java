@@ -1,6 +1,8 @@
 package com.example.demo.entities;
 
 import lombok.Builder;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 public class AccessInfo {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "bookId")
     private String bookId;
 
     @Column(name = "country")
@@ -28,12 +30,12 @@ public class AccessInfo {
     @Column(name = "textToSpeechPermission")
     private String textToSpeechPermission;
 
-    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn @NotFound(action = NotFoundAction.IGNORE)
     private EPub ePub;
 
-    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn @NotFound(action = NotFoundAction.IGNORE)
     private PDF pdf;
 
     @Column(name = "webReaderLink")

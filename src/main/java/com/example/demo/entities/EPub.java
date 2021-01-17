@@ -20,7 +20,7 @@ public class EPub {
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "bookId")
+    @JoinColumn(name = "id")
     private AccessInfo accessInfo;
 
     public EPub() {
