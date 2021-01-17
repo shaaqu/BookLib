@@ -1,8 +1,6 @@
 package com.example.demo.entities;
 
 import lombok.Builder;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,7 +29,6 @@ public class AccessInfo {
     private String textToSpeechPermission;
 
     @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
     @PrimaryKeyJoinColumn
     private EPub ePub;
 
