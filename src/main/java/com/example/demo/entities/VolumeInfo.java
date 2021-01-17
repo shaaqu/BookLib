@@ -38,12 +38,7 @@ public class VolumeInfo {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "volumeInfo_books",
-            joinColumns = {@JoinColumn(name = "bookId")},
-            inverseJoinColumns = {@JoinColumn(name = "industryIdentifier")}
-    )
+    @OneToMany(mappedBy = "volumeInfo")
     private List<IndustryIdentifier> industryIdentifiers = new ArrayList<IndustryIdentifier>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

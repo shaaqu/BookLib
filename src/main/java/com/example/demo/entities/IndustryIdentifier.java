@@ -21,18 +21,19 @@ public class IndustryIdentifier {
     @Column(name = "identifier")
     private String identifier;
 
-    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
-    List<VolumeInfo> books = new ArrayList<VolumeInfo>();
+    @ManyToOne
+    @JoinColumn(name = "bookId", nullable = false)
+    VolumeInfo volumeInfo;
 
     public IndustryIdentifier() {
     }
 
     @Builder
-    public IndustryIdentifier(long id, String type, String identifier, List<VolumeInfo> books) {
+    public IndustryIdentifier(long id, String type, String identifier, VolumeInfo volumeInfo) {
         this.id = id;
         this.type = type;
         this.identifier = identifier;
-        this.books = books;
+        this.volumeInfo = volumeInfo;
     }
 
     public long getId() {
@@ -47,7 +48,7 @@ public class IndustryIdentifier {
         return identifier;
     }
 
-    public List<VolumeInfo> getBooks() {
-        return books;
+    public VolumeInfo getVolumeInfo() {
+        return volumeInfo;
     }
 }
