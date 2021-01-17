@@ -69,8 +69,8 @@ public class VolumeInfo {
     @Column(name = "contentVersion")
     private String contentVersion;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "imageLinks", referencedColumnName = "id")
+    @OneToOne(mappedBy = "volumeInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
     private ImageLinks imageLinks;
 
     @Column(name = "language")
