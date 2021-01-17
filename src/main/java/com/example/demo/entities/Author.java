@@ -14,7 +14,7 @@ public class Author {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "authors")
     List<VolumeInfo> books = new ArrayList<VolumeInfo>();
 
     public Author() {

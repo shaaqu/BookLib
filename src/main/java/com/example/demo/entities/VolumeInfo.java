@@ -41,7 +41,7 @@ public class VolumeInfo {
     @OneToMany(mappedBy = "volumeInfo")
     private List<IndustryIdentifier> industryIdentifiers = new ArrayList<IndustryIdentifier>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "readingMode", referencedColumnName = "id")
     private ReadingMode readingMode;
 

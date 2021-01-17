@@ -28,10 +28,10 @@ public class AccessInfo {
     @Column(name = "textToSpeechPermission")
     private String textToSpeechPermission;
 
-    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.MERGE)
     private EPub ePub;
 
-    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "accessInfo", cascade = CascadeType.MERGE)
     private PDF pdf;
 
     @Column(name = "webReaderLink")

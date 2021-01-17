@@ -3,6 +3,8 @@ package com.example.demo.services;
 import com.example.demo.BookItemDeserializer;
 import com.example.demo.entities.Author;
 import com.example.demo.entities.Book;
+import com.example.demo.entities.IndustryIdentifier;
+import com.example.demo.entities.ReadingMode;
 import com.example.demo.repositories.*;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -77,14 +79,22 @@ public class BookJsonModule {
     }
 
     private void saveVolumeInfo(Book v) {
+        volumeInfoRepository.save(v.getVolumeInfo());
+
+        ReadingMode readingMode = v.getVolumeInfo().getReadingMode();
+        readingMode.setVolumeInfo(v.getVolumeInfo());
+        readingModeRepository.save(readingMode);
+
+
         v.getVolumeInfo().getAuthors().forEach(a -> {
             authorRepository.save(a);
         });
+
         v.getVolumeInfo().getIndustryIdentifiers().forEach(i -> {
+            i.setVolumeInfo(v.getVolumeInfo());
             industryIdentifierRepository.save(i);
         });
-        readingModeRepository.save(v.getVolumeInfo().getReadingMode());
+
         imageLinksRepository.save(v.getVolumeInfo().getImageLinks());
-//        volumeInfoRepository.save(v.getVolumeInfo());
     }
 }
