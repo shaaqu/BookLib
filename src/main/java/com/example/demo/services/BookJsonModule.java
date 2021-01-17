@@ -57,50 +57,51 @@ public class BookJsonModule {
             VolumeInfo volumeInfo = v.getVolumeInfo();
             AccessInfo accessInfo = v.getAccessInfo();
 
+            List<IndustryIdentifier> industryIdentifierList = volumeInfo.getIndustryIdentifiers();
+            List<Author> authors = volumeInfo.getAuthors();
+            volumeInfo.getIndustryIdentifiers().clear();
+            volumeInfo.getAuthors().clear();
+
+            industryIdentifierList.forEach( i -> {
+                i.setVolumeInfo(volumeInfo);
+                volumeInfo.addIndustryIdentifiers(i);
+            });
+
+            authors.forEach(a -> {
+                a.addBook(volumeInfo);
+                volumeInfo.addAuthor(a);
+            });
+
             PDF pdf = v.getAccessInfo().getPdf();
             pdf.setAccessInfo(accessInfo);
             accessInfo.setPdf(pdf);
-//            pdfRepository.save(pdf);
 
             EPub ePub = v.getAccessInfo().getePub();
             ePub.setAccessInfo(accessInfo);
             accessInfo.setePub(ePub);
-//            ePubRepository.save(ePub);
 
             ReadingMode readingMode = v.getVolumeInfo().getReadingMode();
             readingMode.setVolumeInfo(volumeInfo);
             volumeInfo.setReadingMode(readingMode);
-//            readingModeRepository.save(readingMode);
 
             ImageLinks imageLinks = v.getVolumeInfo().getImageLinks();
             imageLinks.setVolumeInfo(volumeInfo);
             volumeInfo.setImageLinks(imageLinks);
-//            imageLinksRepository.save(imageLinks);
 
             v.setAccessInfo(accessInfo);
             v.setVolumeInfo(volumeInfo);
-//            accessInfoRepository.save(accessInfo);
-//            volumeInfoRepository.save(volumeInfo);
 
             bookRepository.save(v);
 
+            authors.forEach(author -> {
+                authorRepository.save(author);
+            });
+
+            industryIdentifierList.forEach( i -> {
+                industryIdentifierRepository.save(i);
+            });
+
         });
     }
 
-
-
-    private void saveVolumeInfo(Book v) {
-
-
-
-        v.getVolumeInfo().getAuthors().forEach(a -> {
-            a.addBook(v.getVolumeInfo());
-        });
-
-        v.getVolumeInfo().getIndustryIdentifiers().forEach(i -> {
-            i.setVolumeInfo(v.getVolumeInfo());
-        });
-
-//        imageLinksRepository.save(v.getVolumeInfo().getImageLinks());
-    }
 }
