@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.Rating;
 import com.example.demo.entities.Author;
 import com.example.demo.repositories.AuthorRepository;
 import com.example.demo.repositories.VolumeInfoRepository;
@@ -24,25 +25,34 @@ public class AuthorsRanksServiceImpl implements AuthorsRankingService{
 
     @Override
     public Map<String, Double> getRanking() {
-        HashMap<String, Double> ranking = new HashMap<>();
+        HashMap<String, Rating> ranking = new HashMap<>();
         authorRepository.findAll().forEach(author -> {
-            ranking.put(author.getName(), 0.0);
+            ranking.put(author.getName(), new Rating(author));
         });
 
+
         volumeInfoRepository.findAll().forEach( b -> {
-            if (b.getRatingCount() == null)
             b.getAuthors().forEach(author -> {
                 String authorsName = author.getName();
-                double r = ranking.get(authorsName);
-                double rank = ranking.get(authorsName) + (b.getAverageRating() / b.getRatingCount());
-                if (r != 0.0) {
-                    rank /= 2 ;
-                }
-                ranking.put(author.getName(), rank);
+                ranking.get(authorsName).addRating(b.getRatingCount(), b.getAverageRating());
             });
         });
 
-        return  ranking;
+        HashMap<String, Double> rankingReturn = new HashMap<>();
+
+        ranking.forEach((a, r) -> {
+            if (ranking.get(a).getRating() != 0) {
+                rankingReturn.put(a, ranking.get(a).getRating());
+            }
+        });
+
+        rankingReturn.forEach((a, r) ->{
+            if (rankingReturn.get(a) == null){
+                rankingReturn.remove(a);
+            }
+        });
+
+        return rankingReturn;
     }
 
 }
