@@ -23,19 +23,19 @@ public class Book {
     private String selfLink;
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn @JsonIgnore
     private VolumeInfo volumeInfo;
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn @JsonIgnore
     private SaleInfo saleInfo;
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn @JsonIgnore
     private AccessInfo accessInfo;
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn @JsonIgnore
     private SearchInfo searchInfo;
 
     public Book() {

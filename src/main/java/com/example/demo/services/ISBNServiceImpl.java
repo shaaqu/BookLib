@@ -32,10 +32,10 @@ public class ISBNServiceImpl implements ISBNService {
         if (volumeInfo != null) {
             String id = volumeInfo.getBookId();
             Book book = bookRepository.getBookByBookId(id);
-            book.setVolumeInfo(null);
-            book.setAccessInfo(null);
-            book.setSaleInfo(null);
-            book.setSearchInfo(null);
+//            book.setVolumeInfo(null);
+//            book.setAccessInfo(null);
+//            book.setSaleInfo(null);
+//            book.setSearchInfo(null);
             return book;
         } else {
             return null;
