@@ -25,11 +25,17 @@ public class AuthorsRanksServiceImpl implements AuthorsRankingService{
     @Override
     public Map<String, Double> getRanking() {
         HashMap<String, Double> ranking = new HashMap<>();
+        authorRepository.findAll().forEach(author -> {
+            ranking.put(author.getName(), 0.0);
+        });
 
-        volumeInfoRepository.findByAverageRatingGreaterThan(0.0).forEach( b -> {
+        volumeInfoRepository.findAll().forEach( b -> {
+            if (b.getRatingCount() == null)
             b.getAuthors().forEach(author -> {
-                double rank = (ranking.get(author) + b.getAverageRating());
-                if (ranking.get(author) != 0.0) {
+                String authorsName = author.getName();
+                double r = ranking.get(authorsName);
+                double rank = ranking.get(authorsName) + (b.getAverageRating() / b.getRatingCount());
+                if (r != 0.0) {
                     rank /= 2 ;
                 }
                 ranking.put(author.getName(), rank);
